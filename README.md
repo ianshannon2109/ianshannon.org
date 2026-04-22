@@ -1,2 +1,0 @@
-# ianshannon.org
-Personal website
