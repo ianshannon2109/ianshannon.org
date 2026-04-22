@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Capstone &middot; Ian Shannon</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="description" content="Capstone research project — access limited to research participants and advisors." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="index.html" class="nav-brand">Ian Shannon</a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li><a href="capstone.html" class="active">Capstone</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="gate" class="gate">
+      <p class="eyebrow">Protected</p>
+      <h2>Capstone Research</h2>
+      <p>This page is shared in confidence with research participants and advisors. Please enter the password you were given to continue.</p>
+      <form id="gate-form" autocomplete="off">
+        <label for="gate-input" style="position:absolute;left:-9999px;">Password</label>
+        <input id="gate-input" type="password" placeholder="Password" autofocus required />
+        <button type="submit">Continue</button>
+      </form>
+      <div id="gate-error" class="gate-error" role="alert" aria-live="polite"></div>
+    </div>
+
+    <div id="capstone-content" style="display:none;">
+      <p class="eyebrow">Capstone</p>
+      <h1>Executive MPA Capstone Research</h1>
+
+      <div class="confidential-note">
+        <strong>Shared in confidence.</strong> The material on this page is shared with research participants and advisors for the purpose of my Duke Sanford Executive MPA capstone. Please do not circulate without permission.
+      </div>
+
+      <section class="resume-section">
+        <h2>Research Question</h2>
+        <p>[Placeholder] A concise statement of the question this capstone seeks to answer, including the policy problem it addresses and the audience the research is intended to serve.</p>
+      </section>
+
+      <section class="resume-section">
+        <h2>Current Sources</h2>
+        <p>[Placeholder] A working bibliography of interviews, primary documents, and secondary literature that is shaping the project. This list is updated as new sources are incorporated.</p>
+        <ul class="entry-list">
+          <li><span>Interview series with practitioners &mdash; in progress</span><span class="entry-date">TBD</span></li>
+          <li><span>Primary-source document review</span><span class="entry-date">TBD</span></li>
+          <li><span>Peer-reviewed literature &amp; policy reports</span><span class="entry-date">TBD</span></li>
+        </ul>
+      </section>
+
+      <section class="resume-section">
+        <h2>Project Status</h2>
+        <p>[Placeholder] A short update on where the project currently stands &mdash; literature review, interview rounds completed, analysis in progress, drafting, or revision.</p>
+      </section>
+
+      <section class="resume-section">
+        <h2>Anonymity &amp; Data Protection</h2>
+        <p>[Placeholder] A description of how participant anonymity is preserved, how interview recordings and notes are stored and access-controlled, how identifying details are handled in quoting or paraphrasing, and the process participants can use to withdraw consent or request corrections.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">&copy; 2026 Ian Shannon</div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script src="js/capstone.js"></script>
+</body>
+</html>
