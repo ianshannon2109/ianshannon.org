@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /capstone
+Disallow: /capstone.html
+
+Sitemap: https://ianshannon.org/sitemap.xml
