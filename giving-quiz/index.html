@@ -1,0 +1,456 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Type of Donor Are You?</title>
+<meta name="description" content="Answer ten questions in less than two minutes and understand how you choose to give to political causes.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ianshannon.org/giving-quiz/">
+<meta property="og:title" content="What Type of Donor Are You?">
+<meta property="og:description" content="Answer ten questions in less than two minutes and understand how you choose to give to political causes.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="What Type of Donor Are You?">
+<meta name="twitter:description" content="Answer ten questions in less than two minutes and understand how you choose to give to political causes.">
+<style>
+  :root{
+    --bg:#faf7f2; --card:#ffffff; --ink:#2b2a26; --sub:#6b675e;
+    --accent:#8a3033; --accent-soft:#f3e2e2; --line:#e6e0d6;
+    --gold:#a07d2a; --ok:#3d6b4f;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#1e1c19; --card:#282520; --ink:#ece7dd; --sub:#a49e91;
+           --accent:#d98a8d; --accent-soft:#3a2b2c; --line:#3b372f;
+           --gold:#d1ad5c; --ok:#8fbf9f; }
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:Georgia,'Times New Roman',serif;
+    line-height:1.55; min-height:100vh; padding:2rem 1rem;
+  }
+  .wrap{max-width:680px; margin:0 auto;}
+  header{text-align:center; margin-bottom:1.75rem;}
+  header h1{font-size:1.9rem; letter-spacing:.01em;}
+  header p{color:var(--sub); margin-top:.5rem; font-size:1.02rem;}
+  .rule{width:72px; height:3px; background:var(--gold); margin:1rem auto 0; border-radius:2px;}
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:12px;
+    padding:1.6rem 1.5rem; box-shadow:0 1px 4px rgba(0,0,0,.05);
+  }
+  .qnum{color:var(--gold); font-size:.85rem; letter-spacing:.14em; text-transform:uppercase; margin-bottom:.45rem;}
+  .qtext{font-size:1.18rem; margin-bottom:1.1rem;}
+  .opt{
+    display:block; width:100%; text-align:left; margin:.5rem 0;
+    background:transparent; border:1px solid var(--line); border-radius:9px;
+    padding:.8rem .95rem; font:inherit; color:var(--ink); cursor:pointer;
+    transition:border-color .12s, background .12s;
+  }
+  .opt:hover,.opt:focus-visible{border-color:var(--accent); background:var(--accent-soft); outline:none;}
+  .bar{height:6px; background:var(--line); border-radius:3px; margin:1.4rem 0 0; overflow:hidden;}
+  .bar>div{height:100%; background:var(--gold); width:0; transition:width .25s;}
+  .muted{color:var(--sub); font-size:.9rem;}
+  .center{text-align:center;}
+  .btn{
+    display:inline-block; background:var(--accent); color:#fff; border:none;
+    border-radius:9px; padding:.75rem 1.5rem; font:inherit; font-size:1.05rem;
+    cursor:pointer; margin-top:1.2rem;
+  }
+  .btn.ghost{background:transparent; color:var(--accent); border:1px solid var(--accent);}
+  /* results */
+  .type-name{font-size:1.7rem; margin:.2rem 0 0;}
+  .type-frame{color:var(--gold); font-size:.92rem; letter-spacing:.12em; text-transform:uppercase;}
+  .portrait{font-size:1.05rem; margin:.9rem 0 0;}
+  .streak{margin-top:.6rem; color:var(--sub); font-style:italic;}
+  .sec{margin-top:1.3rem;}
+  .sec h3{font-size:.85rem; letter-spacing:.13em; text-transform:uppercase; color:var(--gold); margin-bottom:.5rem;}
+  .sec ul{padding-left:1.15rem;}
+  .sec li{margin:.35rem 0;}
+  .profile{margin-top:.4rem;}
+  .prow{display:flex; align-items:center; gap:.6rem; margin:.4rem 0;}
+  .prow span{flex:0 0 9.5rem; font-size:.92rem; color:var(--sub);}
+  .pbar{flex:1; height:9px; background:var(--line); border-radius:5px; overflow:hidden;}
+  .pbar>div{height:100%; background:var(--accent);}
+  .blend{
+    margin-top:1.3rem; border-left:3px solid var(--gold);
+    padding:.6rem .9rem; background:var(--accent-soft); border-radius:0 8px 8px 0;
+  }
+  .rarity{margin-top:.55rem; color:var(--sub); font-size:.95rem;}
+  .rarity strong{color:var(--accent);}
+  .shared-note{
+    text-align:center; color:var(--gold); font-size:.8rem; letter-spacing:.11em;
+    text-transform:uppercase; margin-bottom:.9rem;
+  }
+  .share{display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap; margin-top:1.4rem;}
+  .share .btn{margin-top:0;}
+  footer{margin-top:2rem; text-align:center; color:var(--sub); font-size:.85rem; line-height:1.6;}
+  .hidden{display:none;}
+  @media (max-width:480px){
+    body{padding:1.25rem .75rem;}
+    header h1{font-size:1.5rem;}
+    .card{padding:1.2rem 1rem;}
+    .qtext{font-size:1.08rem;}
+    .type-name{font-size:1.4rem;}
+    .prow{flex-wrap:wrap; gap:.25rem;}
+    .prow span{flex:1 0 100%; font-size:.86rem;}
+    .pbar{flex:1 0 100%;}
+    .share .btn{width:100%;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>What Type of Donor Are You?</h1>
+    <p id="subhead">Ten questions, about two minutes.</p>
+    <div class="rule"></div>
+  </header>
+
+  <div id="intro" class="card center">
+    <p style="font-size:1.1rem;">Whether you give to candidates, political causes, or issue
+    advocacy, we all have a style. You may not know yours yet.</p>
+    <p style="margin-top:.6rem;">This is about <em>how</em> you decide, not how much you give.
+    The same four patterns show up whether the gift is $50 or $5,000.</p>
+    <p class="muted" style="margin-top:.8rem;" id="privacy">Drawn from a Duke MPA capstone framework on how donors decide.
+    No answers are collected or sent anywhere; this page keeps your results to itself.</p>
+    <button class="btn" onclick="start()">Find out my giving profile</button>
+  </div>
+
+  <div id="quiz" class="card hidden">
+    <div class="qnum" id="qnum"></div>
+    <div class="qtext" id="qtext"></div>
+    <div id="opts"></div>
+    <div class="bar"><div id="prog"></div></div>
+  </div>
+
+  <div id="result" class="card hidden"></div>
+
+  <footer>
+    <p>These are styles, not scores. Every style funds change when it knows itself.</p>
+    <p style="margin-top:.4rem;">Framework: four decision axes (how opportunities arrive, how they're judged,
+    how money is allocated, who influences) from qualitative research on donor decision-making.</p>
+  </footer>
+</div>
+
+<script>
+// Archetype keys match the capstone deck: strat=Strategist, disc=Planner,
+// loyal=Loyalist, resp=Responder. Option order is shuffled at render time so
+// no answer is advantaged by sitting in a fixed slot.
+const QS = [
+ {
+  q:"Think of the last new candidate or cause you gave to. How did the opportunity find you?",
+  a:[
+   ["Someone I know called and asked me to chip in.", {loyal:2, resp:1}],
+   ["An organization or list I trust flagged it as one that matters.", {disc:2}],
+   ["I went looking for information because I follow elections closely.", {strat:2}],
+   ["Honestly, the cause or candidate solicited me.", {resp:2}]
+  ]
+ },
+ {
+  q:"A fundraising email arrives from an organization you don't recognize. What happens?",
+  a:[
+   ["I normally delete cold emails on sight.", {disc:2, strat:1}],
+   ["I normally take a look. You never know what an opportunity holds.", {resp:2}],
+   ["I really only give when someone I know validates the effort.", {loyal:2}],
+   ["If it's something I care about, I go validate whether it's real and worthwhile.", {strat:2}]
+  ]
+ },
+ {
+  q:"You're asked for a gift big enough to make you pause. What closes the deal?",
+  a:[
+   ["I dig into it myself first, even if that means I decide late.", {strat:2}],
+   ["Whether it fits within the guidelines I set for the year.", {disc:2}],
+   ["Whether someone I trust suggests it's a good idea.", {loyal:2}],
+   ["Whether I believe in the person or the cause.", {resp:2}]
+  ]
+ },
+ {
+  q:"If you had to pick: a candidate you believe passionately in who is a long shot, or something where you know it's a good investment?",
+  a:[
+   ["The good investment. I give where the outcome actually changes.", {strat:1, disc:2}],
+   ["The long shot. Belief is the point of giving.", {resp:2}],
+   ["I rely on the person I trust most to say where the need is.", {loyal:2}],
+   ["Impossible. I would give to both.", {resp:1, loyal:1}]
+  ]
+ },
+ {
+  q:"Where does a gift to a campaign feel like it matters most?",
+  a:[
+   ["Early on, where dollars are scarce and it moves the needle.", {strat:2}],
+   ["Wherever I budgeted for the year. That's why I have a plan.", {disc:2}],
+   ["Where trusted sources tell me it's a good opportunity.", {loyal:1, resp:1}],
+   ["Whatever the big race of the cycle is. That's where the energy is.", {resp:2}]
+  ]
+ },
+ {
+  q:"It's January of an election year. What gets decided before the asks start arriving?",
+  a:[
+   ["I build an annual plan against my criteria, so I know what to say yes and no to.", {disc:2}],
+   ["I set a loose strategy and revise it as things change.", {strat:2}],
+   ["Nothing formal. I give when people I trust ask, and that covers most of it.", {loyal:2}],
+   ["Nothing really. I only give when asked.", {resp:2}]
+  ]
+ },
+ {
+  q:"When you do lean on someone else's judgment, whose is it?",
+  a:[
+   ["I don't rely on other people. I do my own homework.", {strat:2}],
+   ["I've got my trusted sources and I rely on my criteria.", {disc:2}],
+   ["I trust a few people whose word is enough for me.", {loyal:2}],
+   ["I tend to rely on what the vibes are.", {resp:2}]
+  ]
+ },
+ {
+  q:"A close friend asks you to back someone you wouldn't normally give to.",
+  a:[
+   ["I decline kindly, because I've got a strict plan.", {strat:1, disc:2}],
+   ["I give something to support the friend, but not necessarily the cause.", {loyal:2, disc:1}],
+   ["I always give when a friend asks. That's a big part of why I give.", {loyal:2}],
+   ["Depends entirely on how good the ask is.", {resp:2}]
+  ]
+ },
+ {
+  q:"If you pulled up your last two years of gifts right now, would they match the story you tell about your giving?",
+  a:[
+   ["Line for line. I reconcile at the end of every year.", {strat:2, disc:1}],
+   ["Mostly, but the exceptions are always someone I trust asking.", {disc:1, loyal:2}],
+   ["The story is nicer than the ledger, and I've made peace with that.", {resp:2}],
+   ["I have genuinely never looked.", {resp:1, loyal:1}]
+  ]
+ },
+ {
+  q:"After you give, do you find out what happened to the money?",
+  a:[
+   ["I follow the race closely enough to know how it turned out.", {strat:2}],
+   ["I check results when I sit down to plan the next year.", {disc:2}],
+   ["I hear how it went from the person who asked me.", {loyal:2}],
+   ["Honestly, I don't really follow up.", {resp:2}]
+  ]
+ }
+];
+
+const TYPES = {
+ strat:{
+  name:"The Strategist", frame:"Research first, on your own terms",
+  portrait:"You treat giving as something to understand before it's spent. You do your own homework, look for leverage where dollars are scarce, and give where your own read says the money goes furthest. You are comfortable deciding late if that's what it takes to decide well.",
+  strengths:["Independent judgment. Your gifts hold up to scrutiny.","You look for leverage: early money, overlooked races, scarce-dollar moments.","You revise the strategy instead of just repeating it."],
+  watch:["Doors that open through relationships can stay closed to someone working alone.","The perfect read can arrive after the decisive moment has passed."]
+ },
+ disc:{
+  name:"The Planner", frame:"Rules set before the asks arrive",
+  portrait:"You decide the budget, the criteria, and the limits before anyone comes asking, then let the plan do the work. When you say no, it isn't personal, and when you say yes, the amount already reflects how sure you are.",
+  strengths:["You triage before temptation. The plan absorbs the pressure.","You size gifts to your confidence rather than to the ask.","Consistent, polite refusals that keep relationships intact."],
+  watch:["A good screen can filter out the genuinely surprising opportunity.","Exceptions have a way of clustering quietly around people you like."]
+ },
+ loyal:{
+  name:"The Loyalist", frame:"Trust carries the decision",
+  portrait:"Your giving moves through people. A word from someone who has earned your confidence counts for more than any amount of analysis, and your own word carries that same weight in your network. You act fast because you already know whose judgment you trust.",
+  strengths:["Trust is fast. You move while others are still researching.","Your relationships are themselves an information network.","People know exactly where they stand with you."],
+  watch:["Rules bend around people, usually knowingly and occasionally expensively.","A trusted voice can quietly replace your own read of the field."]
+ },
+ resp:{
+  name:"The Responder", frame:"The ask, and the moment, decide",
+  portrait:"You give when the moment is real: a good ask, a cause with momentum, a race everyone is watching. Your generosity is genuine and immediate in a way no plan manufactures, and you say yes to things a stricter donor would never see.",
+  strengths:["You show up when it counts. Momentum is a real force.","You stay open, so you catch opportunities the systematic miss.","Giving, for you, is something you do with other people."],
+  watch:["The inbox can end up setting the agenda.","Energy without a map scatters. Ten sparks, no fire."]
+ }
+};
+
+let idx=0, scores={strat:0,disc:0,loyal:0,resp:0}, answers=[];
+
+// Share of all possible answer paths landing on each result. Computed by
+// exhaustive simulation of every combination (4^10 = 1,048,576 paths), not
+// estimated. Re-run the simulation if a question or any weight changes.
+const RARITY={strat:14, disc:19, loyal:24, resp:28}, HYBRID_RARITY=15;
+
+// --- response capture -----------------------------------------------------
+// Off until CAPTURE_ENDPOINT holds a real POST URL. Both the sending and the
+// wording of the privacy line below are driven by this one constant, so the
+// page can never promise something that isn't true of the build.
+const CAPTURE_ENDPOINT=null;   // e.g. "https://example.org/quiz-responses"
+const CAPTURE_SERVICE="";      // service name shown to takers, e.g. "Formspree"
+
+function captureResponse(resultKey){
+  if(!CAPTURE_ENDPOINT) return;
+  // Ten option indexes, the result, and a date. No identifiers, no free text,
+  // and no clock time: in a small cohort a precise timestamp plus a distinctive
+  // answer pattern is itself an identifier.
+  const payload={
+    answers:answers.slice(0,QS.length),
+    result:resultKey,
+    date:new Date().toISOString().slice(0,10)
+  };
+  // Fire and forget. A failed send must never cost the taker their result.
+  try{
+    fetch(CAPTURE_ENDPOINT,{
+      method:'POST', keepalive:true,
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)
+    }).catch(function(){});
+  }catch(e){}
+}
+
+// Keeps the visible count honest if a question is added or removed. The <meta>
+// tags can't be derived this way, since crawlers read the static HTML.
+(function setCount(){
+  const words=["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve"];
+  const n=words[QS.length]||QS.length;
+  const el=document.getElementById('subhead');
+  if(el){ el.textContent=n.charAt(0).toUpperCase()+n.slice(1)+" questions, about two minutes."; }
+})();
+
+(function setPrivacyLine(){
+  if(!CAPTURE_ENDPOINT) return;  // default wording in the HTML is already correct
+  const el=document.getElementById('privacy');
+  if(!el) return;
+  el.textContent="Drawn from a Duke MPA capstone framework on how donors decide. "+
+    "Your ten answers are recorded anonymously to see how people use the framework. "+
+    "No name, email, or IP address is stored, and there is no way to trace answers "+
+    "back to you."+(CAPTURE_SERVICE?" Answers are sent to "+CAPTURE_SERVICE+".":"");
+})();
+
+function start(){
+  // Sandboxed frames can refuse history writes; clearing the hash is cosmetic.
+  if(location.hash){ try{ history.replaceState(null,'',location.pathname+location.search); }catch(e){} }
+  document.getElementById('intro').classList.add('hidden');
+  document.getElementById('result').classList.add('hidden');
+  document.getElementById('quiz').classList.remove('hidden');
+  idx=0; scores={strat:0,disc:0,loyal:0,resp:0}; answers=[];
+  render();
+}
+function shuffle(arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+function render(){
+  const q=QS[idx];
+  document.getElementById('qnum').textContent="Question "+(idx+1)+" of "+QS.length;
+  document.getElementById('qtext').textContent=q.q;
+  const box=document.getElementById('opts'); box.innerHTML="";
+  // Shuffle so no answer is advantaged by always sitting in the same slot.
+  // Each option carries its own weights, so order never affects scoring. The
+  // original index rides along so a captured answer means the same thing every
+  // time regardless of where it was displayed.
+  const opts=q.a.map((o,i)=>({label:o[0], val:o[1], i:i}));
+  shuffle(opts).forEach(o=>{
+    const b=document.createElement('button');
+    b.className='opt'; b.textContent=o.label;
+    b.onclick=()=>pick(q,o.val,o.i);
+    box.appendChild(b);
+  });
+  document.getElementById('prog').style.width=(idx/QS.length*100)+"%";
+}
+function pick(q,val,optIdx){
+  answers[idx]=optIdx;
+  for(const k in val){ scores[k]+=val[k]; }
+  idx++;
+  if(idx<QS.length){ render(); } else { finish(); }
+}
+function finish(){
+  document.getElementById('quiz').classList.add('hidden');
+  const keys=["strat","disc","loyal","resp"];
+  const order=keys.slice().sort((a,b)=>scores[b]-scores[a]);
+  const top=order[0], second=order[1];
+  // A genuine tie is a hybrid, not a coin flip resolved by declaration order.
+  const tied = scores[second]===scores[top];
+  const streaky = !tied && scores[second]>=scores[top]*0.6 && scores[second]>0;
+  captureResponse(tied ? [top,second].sort().join('-') : top);
+  renderResult(top, tied?second:(streaky?second:null), tied, true);
+}
+
+const shortName = k => TYPES[k].name.replace(/^The /,'');
+
+function shareText(primary, partner, tied){
+  if(tied && partner){
+    return "I'm equal parts "+shortName(primary)+' and '+shortName(partner)+
+           ', which about '+HYBRID_RARITY+'% of people land on. What type of donor are you?';
+  }
+  return "I'm "+TYPES[primary].name+'. Only '+RARITY[primary]+
+         '% of answers land here. What type of donor are you?';
+}
+
+function copyShare(primary, partner, tied){
+  const url=location.href.split('#')[0]+'#result='+primary+(tied&&partner?'-'+partner:'');
+  const text=shareText(primary,partner,tied)+' '+url;
+  const btn=document.getElementById('shareBtn');
+  const ok=()=>{ if(btn){ btn.textContent='Copied. Go paste it.'; setTimeout(()=>{btn.textContent='Copy my result';},2200);} };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(ok, ()=>legacyCopy(text,ok));
+  } else { legacyCopy(text,ok); }
+}
+function legacyCopy(text, ok){
+  const ta=document.createElement('textarea');
+  ta.value=text; ta.setAttribute('readonly','');
+  ta.style.position='fixed'; ta.style.top='-1000px';
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); ok(); }
+  catch(e){ window.prompt('Copy your result:', text); }
+  document.body.removeChild(ta);
+}
+
+// shared===true means someone arrived on a friend's result link: no scores of
+// their own, so no profile bars and the call to action is to take it.
+function renderResult(primary, partner, tied, mine){
+  const t=TYPES[primary];
+  const keys=["strat","disc","loyal","resp"];
+  let head, rarity;
+  if(tied && partner){
+    head='<div class="type-frame">'+t.frame+'</div>'+
+         '<h2 class="type-name">You are equal parts '+shortName(primary)+' and '+shortName(partner)+'</h2>';
+    rarity='<p class="rarity">A dead-even split, which about '+HYBRID_RARITY+'% of people land on.</p>';
+  } else {
+    head='<div class="type-frame">'+t.frame+'</div>'+
+         '<h2 class="type-name">You are '+t.name.replace(/^The /,'the ')+'</h2>';
+    rarity='<p class="rarity">Only <strong>'+RARITY[primary]+'%</strong> of answer paths land here.</p>';
+  }
+  let streak='';
+  if(partner && !tied){
+    streak='<p class="streak">â€¦with a strong '+shortName(partner)+' streak.</p>';
+  }
+  let body='<p class="portrait">'+t.portrait+'</p>'+streak;
+  if(tied && partner){
+    body+='<p class="portrait">'+TYPES[partner].portrait+'</p>';
+  }
+  body+='<div class="sec"><h3>Your strengths</h3><ul>'+t.strengths.map(s=>'<li>'+s+'</li>').join('')+'</ul></div>'+
+        '<div class="sec"><h3>Worth watching</h3><ul>'+t.watch.map(s=>'<li>'+s+'</li>').join('')+'</ul></div>';
+  if(mine){
+    const max=Math.max.apply(null,keys.map(k=>scores[k]))||1;
+    let bars='';
+    keys.forEach(k=>{
+      bars+='<div class="prow"><span>'+shortName(k)+'</span>'+
+            '<div class="pbar"><div style="width:'+(scores[k]/max*100)+'%"></div></div></div>';
+    });
+    body+='<div class="sec"><h3>Your full profile</h3><div class="profile">'+bars+'</div></div>';
+  }
+  let actions;
+  if(mine){
+    actions='<div class="share"><button class="btn" id="shareBtn">Copy my result</button>'+
+            '<button class="btn ghost" onclick="start()">Take it again</button></div>'+
+            '<p class="muted center" style="margin-top:.7rem;">Copies a one-line result and a link. Nothing is sent anywhere.</p>';
+  } else {
+    actions='<div class="share"><button class="btn" onclick="start()">Find out what I am</button></div>';
+  }
+  document.getElementById('result').innerHTML=
+    (mine?'':'<p class="shared-note">Someone shared their result with you.</p>')+
+    '<div class="center">'+head+rarity+'</div>'+body+actions;
+  document.getElementById('result').classList.remove('hidden');
+  const sb=document.getElementById('shareBtn');
+  if(sb){ sb.onclick=function(){ copyShare(primary, partner, tied); }; }
+}
+
+(function initFromHash(){
+  const m=/^#result=([a-z]+)(?:-([a-z]+))?$/.exec(location.hash||'');
+  if(!m || !TYPES[m[1]]) return;
+  const partner=(m[2] && TYPES[m[2]])?m[2]:null;
+  document.getElementById('intro').classList.add('hidden');
+  renderResult(m[1], partner, !!partner, false);
+})();
+</script>
+</body>
+</html>
+
+
+
