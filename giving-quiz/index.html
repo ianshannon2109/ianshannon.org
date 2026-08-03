@@ -272,12 +272,12 @@ const TYPES = {
   name:"The Strategist", frame:"Research first, on your own terms",
   portrait:"You treat giving as something to understand before it's spent. You do your own homework, look for leverage where dollars are scarce, and give where your own read says the money goes furthest. You are comfortable deciding late if that's what it takes to decide well.",
   strengths:["Independent judgment. Your gifts hold up to scrutiny.","You look for leverage: early money, overlooked races, scarce-dollar moments.","You revise the strategy instead of just repeating it."],
-  watch:["Doors that open through relationships can stay closed to someone working alone.","The perfect read can arrive after the decisive moment has passed."]
+  watch:["Doors that open through relationships can stay closed to someone working alone.","Certainty comes slowly, and by the time you're sure, the moment when your gift mattered most may already be gone."]
  },
  disc:{
   name:"The Planner", frame:"Rules set before the asks arrive",
   portrait:"You decide the budget, the criteria, and the limits before anyone comes asking, then let the plan do the work. When you say no, it isn't personal, and when you say yes, the amount already reflects how sure you are.",
-  strengths:["You triage before temptation. The plan absorbs the pressure.","You size gifts to your confidence rather than to the ask.","Consistent, polite refusals that keep relationships intact."],
+  strengths:["You decide before anyone is asking, so a good pitch can't talk you into a gift you didn't plan.","You size gifts to your confidence in the candidate rather than to the ask.","Consistent, polite refusals that keep relationships intact."],
   watch:["A good screen can filter out the genuinely surprising opportunity.","Exceptions have a way of clustering quietly around people you like."]
  },
  loyal:{
@@ -287,10 +287,10 @@ const TYPES = {
   watch:["Rules bend around people, usually knowingly and occasionally expensively.","A trusted voice can quietly replace your own read of the field."]
  },
  resp:{
-  name:"The Responder", frame:"The ask, and the moment, decide",
+  name:"The Responder", frame:"The ask and the moment decide",
   portrait:"You give when the moment is real: a good ask, a cause with momentum, a race everyone is watching. Your generosity is genuine and immediate in a way no plan manufactures, and you say yes to things a stricter donor would never see.",
-  strengths:["You show up when it counts. Momentum is a real force.","You stay open, so you catch opportunities the systematic miss.","Giving, for you, is something you do with other people."],
-  watch:["The inbox can end up setting the agenda.","Energy without a map scatters. Ten sparks, no fire."]
+  strengths:["You show up when it counts. Momentum is a real force.","You stay open, so you catch opportunities a system would miss.","Giving for you is something you do with other people."],
+  watch:["Mass campaign appeals can end up setting the agenda.","Without a plan, the energy scatters across many small gifts that never add up."]
  }
 };
 
@@ -409,10 +409,10 @@ const ARCH_COLOR={strat:'var(--coral)', disc:'var(--arch-petrol)', loyal:'var(--
 function shareText(primary, partner, tied){
   if(tied && partner){
     return "I'm equal parts "+shortName(primary)+' and '+shortName(partner)+
-           ', which about '+HYBRID_RARITY+'% of people land on. What type of donor are you?';
+           ', which about '+HYBRID_RARITY+'% of donors land on. What type of donor are you?';
   }
-  return "I'm "+TYPES[primary].name+'. Only '+RARITY[primary]+
-         '% of answers land here. What type of donor are you?';
+  return "I'm the "+shortName(primary)+'. Only '+RARITY[primary]+
+         '% of donors land here. What type of donor are you?';
 }
 
 function copyShare(primary, partner, tied){
@@ -450,11 +450,11 @@ function renderResult(primary, partner, tied, mine){
   if(tied && partner){
     head='<div class="type-frame">'+t.frame+'</div>'+
          '<h2 class="type-name">You are equal parts '+shortName(primary)+' and '+shortName(partner)+'</h2>';
-    rarity='<p class="rarity">A dead-even split, which about '+HYBRID_RARITY+'% of people land on.</p>';
+    rarity='<p class="rarity">A dead-even split, which about '+HYBRID_RARITY+'% of donors land on.</p>';
   } else {
     head='<div class="type-frame">'+t.frame+'</div>'+
          '<h2 class="type-name">You are '+t.name.replace(/^The /,'the ')+'</h2>';
-    rarity='<p class="rarity">Only <strong>'+RARITY[primary]+'%</strong> of answer paths land here.</p>';
+    rarity='<p class="rarity">Only <strong>'+RARITY[primary]+'%</strong> of donors land here.</p>';
   }
   let streak='';
   if(partner && !tied){
