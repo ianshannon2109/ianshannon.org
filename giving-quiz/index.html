@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#083D4E">
 <title>What Type of Donor Are You?</title>
 <meta name="description" content="Answer ten questions in less than two minutes and understand how you choose to give to political causes.">
 <meta property="og:type" content="website">
@@ -13,72 +14,107 @@
 <meta name="twitter:title" content="What Type of Donor Are You?">
 <meta name="twitter:description" content="Answer ten questions in less than two minutes and understand how you choose to give to political causes.">
 <style>
+  /* Coral Signal hybrid (products/branding/exec-summary-coral-signal.html).
+     Petrol #083D4E base, coral #FF5A5F accent, sky/verdant supporting,
+     Archivo Black display over Source Serif body. No sepia anywhere.
+     Flare yellow is provisional brand-wide; it appears exactly once (the
+     intro highlight), so cutting it later is a one-line change.
+     Deliberately absent: the masthead's ghost background-numeral device
+     (per Ian, and it would leak the study's sample size into this page). */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap');
   :root{
-    --bg:#faf7f2; --card:#ffffff; --ink:#2b2a26; --sub:#6b675e;
-    --accent:#8a3033; --accent-soft:#f3e2e2; --line:#e6e0d6;
-    --gold:#a07d2a; --ok:#3d6b4f;
+    --petrol:#083D4E; --coral:#FF5A5F; --sky:#9BD6EA; --verdant:#12B886;
+    --flare:#FFD02F;
+    --bg:#FBFBF9; --card:#ffffff; --ink:#31434c; --head:#083D4E;
+    --sub:#5f7078; --line:#E2E6E3;
+    --accent:#FF5A5F; --accent-soft:rgba(255,90,95,.08);
+    --kicker:#FF5A5F; --arch-petrol:#083D4E;
+    --mast:#083D4E; --mast-ink:#ffffff; --mast-sub:#BCD8E2;
+    --f-display:'Archivo Black','Arial Black',sans-serif;
+    --f-body:'Source Serif 4',Georgia,Cambria,'Times New Roman',serif;
+    --f-ui:'Inter','Segoe UI',system-ui,sans-serif;
+    --f-mono:'IBM Plex Mono',Consolas,monospace;
   }
   @media (prefers-color-scheme: dark){
-    :root{ --bg:#1e1c19; --card:#282520; --ink:#ece7dd; --sub:#a49e91;
-           --accent:#d98a8d; --accent-soft:#3a2b2c; --line:#3b372f;
-           --gold:#d1ad5c; --ok:#8fbf9f; }
+    :root{ --bg:#071D26; --card:#0D2B37; --ink:#DEEAEF; --head:#F2F7F9;
+           --sub:#9DB4BD; --line:#1E4354;
+           --accent:#FF6B70; --accent-soft:rgba(255,107,112,.12);
+           --kicker:#9BD6EA; --arch-petrol:#2F7D9C;
+           --mast:#0C3140; }
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   body{
     background:var(--bg); color:var(--ink);
-    font-family:Georgia,'Times New Roman',serif;
+    font-family:var(--f-body);
     line-height:1.55; min-height:100vh; padding:2rem 1rem;
   }
   .wrap{max-width:680px; margin:0 auto;}
-  header{text-align:center; margin-bottom:1.75rem;}
-  header h1{font-size:1.9rem; letter-spacing:.01em;}
-  header p{color:var(--sub); margin-top:.5rem; font-size:1.02rem;}
-  .rule{width:72px; height:3px; background:var(--gold); margin:1rem auto 0; border-radius:2px;}
-  .card{
-    background:var(--card); border:1px solid var(--line); border-radius:12px;
-    padding:1.6rem 1.5rem; box-shadow:0 1px 4px rgba(0,0,0,.05);
+  header{
+    background:var(--mast); color:var(--mast-ink); text-align:center;
+    border-radius:16px; padding:2.1rem 1.5rem 1.8rem; margin-bottom:1.4rem;
   }
-  .qnum{color:var(--gold); font-size:.85rem; letter-spacing:.14em; text-transform:uppercase; margin-bottom:.45rem;}
-  .qtext{font-size:1.18rem; margin-bottom:1.1rem;}
+  .kicker{
+    font-family:var(--f-mono); font-size:.72rem; letter-spacing:.24em;
+    text-transform:uppercase; color:var(--sky); margin-bottom:.85rem;
+  }
+  header h1{font-family:var(--f-display); font-weight:400; font-size:2.05rem; line-height:1.08;}
+  header h1 .accent{color:var(--coral);}
+  header p{color:var(--mast-sub); margin-top:.7rem; font-size:1.02rem;}
+  .dotrow{display:flex; gap:7px; justify-content:center; margin-top:1.1rem;}
+  .dotrow i{width:11px; height:11px; border-radius:50%;}
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:16px;
+    padding:1.6rem 1.5rem; box-shadow:0 2px 10px rgba(8,61,78,.05);
+  }
+  .qnum{
+    font-family:var(--f-mono); color:var(--kicker); font-size:.78rem;
+    letter-spacing:.18em; text-transform:uppercase; margin-bottom:.55rem;
+  }
+  .qtext{font-size:1.18rem; font-weight:600; color:var(--head); line-height:1.4; margin-bottom:1.1rem;}
   .opt{
     display:block; width:100%; text-align:left; margin:.5rem 0;
-    background:transparent; border:1px solid var(--line); border-radius:9px;
-    padding:.8rem .95rem; font:inherit; color:var(--ink); cursor:pointer;
+    background:transparent; border:1px solid var(--line); border-radius:12px;
+    padding:.8rem .95rem; font-family:var(--f-ui); font-size:.97rem;
+    line-height:1.5; color:var(--ink); cursor:pointer;
     transition:border-color .12s, background .12s;
   }
   .opt:hover,.opt:focus-visible{border-color:var(--accent); background:var(--accent-soft); outline:none;}
   .bar{height:6px; background:var(--line); border-radius:3px; margin:1.4rem 0 0; overflow:hidden;}
-  .bar>div{height:100%; background:var(--gold); width:0; transition:width .25s;}
+  .bar>div{height:100%; background:var(--accent); width:0; transition:width .25s;}
   .muted{color:var(--sub); font-size:.9rem;}
   .center{text-align:center;}
   .btn{
     display:inline-block; background:var(--accent); color:#fff; border:none;
-    border-radius:9px; padding:.75rem 1.5rem; font:inherit; font-size:1.05rem;
-    cursor:pointer; margin-top:1.2rem;
+    border-radius:999px; padding:.75rem 1.6rem; font-family:var(--f-ui);
+    font-weight:600; font-size:1rem; cursor:pointer; margin-top:1.2rem;
   }
   .btn.ghost{background:transparent; color:var(--accent); border:1px solid var(--accent);}
+  .hl{background:linear-gradient(transparent 55%, var(--flare) 55%); padding:0 2px; font-weight:600;}
+  @media (prefers-color-scheme: dark){
+    /* flare behind light text is unreadable; brand fallback is the sky underline */
+    .hl{background:none; border-bottom:2px solid var(--sky); padding:0;}
+  }
   /* results */
-  .type-name{font-size:1.7rem; margin:.2rem 0 0;}
-  .type-frame{color:var(--gold); font-size:.92rem; letter-spacing:.12em; text-transform:uppercase;}
+  .type-band{height:6px; border-radius:3px; width:84px; margin:0 auto 1rem;}
+  .type-name{font-family:var(--f-display); font-weight:400; color:var(--head); font-size:1.6rem; line-height:1.15; margin:.25rem 0 0;}
+  .type-frame{font-family:var(--f-mono); color:var(--kicker); font-size:.78rem; letter-spacing:.16em; text-transform:uppercase;}
   .portrait{font-size:1.05rem; margin:.9rem 0 0;}
   .streak{margin-top:.6rem; color:var(--sub); font-style:italic;}
   .sec{margin-top:1.3rem;}
-  .sec h3{font-size:.85rem; letter-spacing:.13em; text-transform:uppercase; color:var(--gold); margin-bottom:.5rem;}
+  .sec h3{font-family:var(--f-display); font-weight:400; font-size:.95rem; color:var(--head); margin-bottom:.5rem;}
+  .sec h3::before{content:"/ "; color:var(--accent);}
   .sec ul{padding-left:1.15rem;}
   .sec li{margin:.35rem 0;}
   .profile{margin-top:.4rem;}
   .prow{display:flex; align-items:center; gap:.6rem; margin:.4rem 0;}
-  .prow span{flex:0 0 9.5rem; font-size:.92rem; color:var(--sub);}
+  .prow span{flex:0 0 9.5rem; font-family:var(--f-ui); font-size:.88rem; color:var(--sub);}
   .pbar{flex:1; height:9px; background:var(--line); border-radius:5px; overflow:hidden;}
-  .pbar>div{height:100%; background:var(--accent);}
-  .blend{
-    margin-top:1.3rem; border-left:3px solid var(--gold);
-    padding:.6rem .9rem; background:var(--accent-soft); border-radius:0 8px 8px 0;
-  }
+  .pbar>div{height:100%; border-radius:5px; background:var(--accent);}
   .rarity{margin-top:.55rem; color:var(--sub); font-size:.95rem;}
   .rarity strong{color:var(--accent);}
   .shared-note{
-    text-align:center; color:var(--gold); font-size:.8rem; letter-spacing:.11em;
+    font-family:var(--f-mono); text-align:center; color:var(--kicker);
+    font-size:.72rem; letter-spacing:.14em;
     text-transform:uppercase; margin-bottom:.9rem;
   }
   .share{display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap; margin-top:1.4rem;}
@@ -87,10 +123,11 @@
   .hidden{display:none;}
   @media (max-width:480px){
     body{padding:1.25rem .75rem;}
-    header h1{font-size:1.5rem;}
+    header{padding:1.6rem 1rem 1.4rem;}
+    header h1{font-size:1.6rem;}
     .card{padding:1.2rem 1rem;}
     .qtext{font-size:1.08rem;}
-    .type-name{font-size:1.4rem;}
+    .type-name{font-size:1.35rem;}
     .prow{flex-wrap:wrap; gap:.25rem;}
     .prow span{flex:1 0 100%; font-size:.86rem;}
     .pbar{flex:1 0 100%;}
@@ -101,15 +138,16 @@
 <body>
 <div class="wrap">
   <header>
-    <h1>What Type of Donor Are You?</h1>
+    <div class="kicker">Giving Without Knowing</div>
+    <h1>What Type of <span class="accent">Donor</span> Are You?</h1>
     <p id="subhead">Ten questions, about two minutes.</p>
-    <div class="rule"></div>
+    <div class="dotrow"><i style="background:var(--coral)"></i><i style="background:var(--verdant)"></i><i style="background:var(--sky)"></i></div>
   </header>
 
   <div id="intro" class="card center">
     <p style="font-size:1.1rem;">Whether you give to candidates, political causes, or issue
     advocacy, we all have a style. You may not know yours yet.</p>
-    <p style="margin-top:.6rem;">This is about <em>how</em> you decide, not how much you give.
+    <p style="margin-top:.6rem;">This is about <span class="hl">how</span> you decide, not how much you give.
     The same four patterns show up whether the gift is $50 or $5,000.</p>
     <p class="muted" style="margin-top:.8rem;" id="privacy">Drawn from a Duke MPA capstone framework on how donors decide.
     No answers are collected or sent anywhere; this page keeps your results to itself.</p>
@@ -363,6 +401,11 @@ function finish(){
 
 const shortName = k => TYPES[k].name.replace(/^The /,'');
 
+// Brand spec: Strategist = Coral, Planner = Petrol, Loyalist = Verdant,
+// Responder = Sky. Petrol goes through a CSS variable because it needs a
+// lighter value in dark mode to stay visible against the card.
+const ARCH_COLOR={strat:'var(--coral)', disc:'var(--arch-petrol)', loyal:'var(--verdant)', resp:'var(--sky)'};
+
 function shareText(primary, partner, tied){
   if(tied && partner){
     return "I'm equal parts "+shortName(primary)+' and '+shortName(partner)+
@@ -396,6 +439,13 @@ function legacyCopy(text, ok){
 function renderResult(primary, partner, tied, mine){
   const t=TYPES[primary];
   const keys=["strat","disc","loyal","resp"];
+  // Colored band above the result: solid for a clean type, split 50/50 for a
+  // tie, 70/30 when there's a strong secondary streak.
+  let bandBg;
+  if(tied && partner){ bandBg='linear-gradient(90deg,'+ARCH_COLOR[primary]+' 0 50%,'+ARCH_COLOR[partner]+' 50% 100%)'; }
+  else if(partner){ bandBg='linear-gradient(90deg,'+ARCH_COLOR[primary]+' 0 70%,'+ARCH_COLOR[partner]+' 70% 100%)'; }
+  else { bandBg=ARCH_COLOR[primary]; }
+  const band='<div class="type-band" style="background:'+bandBg+'"></div>';
   let head, rarity;
   if(tied && partner){
     head='<div class="type-frame">'+t.frame+'</div>'+
@@ -408,7 +458,7 @@ function renderResult(primary, partner, tied, mine){
   }
   let streak='';
   if(partner && !tied){
-    streak='<p class="streak">â€¦with a strong '+shortName(partner)+' streak.</p>';
+    streak='<p class="streak">…with a strong '+shortName(partner)+' streak.</p>';
   }
   let body='<p class="portrait">'+t.portrait+'</p>'+streak;
   if(tied && partner){
@@ -421,7 +471,7 @@ function renderResult(primary, partner, tied, mine){
     let bars='';
     keys.forEach(k=>{
       bars+='<div class="prow"><span>'+shortName(k)+'</span>'+
-            '<div class="pbar"><div style="width:'+(scores[k]/max*100)+'%"></div></div></div>';
+            '<div class="pbar"><div style="width:'+(scores[k]/max*100)+'%;background:'+ARCH_COLOR[k]+'"></div></div></div>';
     });
     body+='<div class="sec"><h3>Your full profile</h3><div class="profile">'+bars+'</div></div>';
   }
@@ -435,7 +485,7 @@ function renderResult(primary, partner, tied, mine){
   }
   document.getElementById('result').innerHTML=
     (mine?'':'<p class="shared-note">Someone shared their result with you.</p>')+
-    '<div class="center">'+head+rarity+'</div>'+body+actions;
+    '<div class="center">'+band+head+rarity+'</div>'+body+actions;
   document.getElementById('result').classList.remove('hidden');
   const sb=document.getElementById('shareBtn');
   if(sb){ sb.onclick=function(){ copyShare(primary, partner, tied); }; }
@@ -451,6 +501,5 @@ function renderResult(primary, partner, tied, mine){
 </script>
 </body>
 </html>
-
 
 
