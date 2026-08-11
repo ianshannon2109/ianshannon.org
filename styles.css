@@ -1,11 +1,55 @@
+/* ianshannon.org — "Editorial Bloom"
+   Light lavender ground, bold flat colour shapes, hard-cornered solid cards.
+   Fraunces (WONK axis on, for the wonky alternates) over Public Sans.
+   Deliberately absent: dark or near-black grounds. The capstone page spends
+   that on its petrol masthead, and it only reads as a threshold because
+   nothing else on the site goes dark. */
+
 :root {
-  --navy: #2c3e50;
-  --accent: #c8956c;
-  --bg: #f7f5f2;
-  --surface: #ffffff;
-  --muted: #8a8279;
-  --border: #e8e4de;
+  --indigo: #35459e;
+  --teal:   #147d73;
+  --plum:   #3d2a5c;
+  --orange: #f2822e;
+
+  --ground: #f1f2f7;
+  --panel:  #fdfdff;
+  --ink:    #1b1d2a;
+  --dim:    #5b5f7a;
+  --rule:   #c9ccde;
+
+  /* Tints for flat fills that still take dark text */
+  --indigo-wash: #e4e7f5;
+  --teal-wash:   #dbeeea;
+  --orange-wash: #fdead9;
+
   --max-width: 1080px;
+  --measure: 62ch;
+
+  --f-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --f-body: 'Public Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+}
+
+/* Dark mode keeps the palette's own hue instead of dropping to neutral black.
+   "No near-black grounds" is a light-mode identity rule; abandoning the indigo
+   family after dark would just make it a different site at night. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground: #191a2e;
+    --panel:  #22243a;
+    --ink:    #e8e9f5;
+    --dim:    #9a9ebe;
+    --rule:   #383b60;
+
+    --indigo: #7d8ce0;
+    --teal:   #3fb5a5;
+    --plum:   #b9a5dd;
+    --orange: #f79447;
+
+    --indigo-wash: #262a4a;
+    --teal-wash:   #1c3a3a;
+    --orange-wash: #3a2a1c;
+  }
 }
 
 * { box-sizing: border-box; }
@@ -13,29 +57,42 @@
 html, body { margin: 0; padding: 0; }
 
 body {
-  font-family: 'DM Sans', system-ui, sans-serif;
-  background: var(--bg);
-  color: var(--navy);
+  font-family: var(--f-body);
+  background: var(--ground);
+  color: var(--ink);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4 {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-weight: 600;
-  color: var(--navy);
-  line-height: 1.2;
+  font-family: var(--f-display);
+  font-variation-settings: 'SOFT' 0, 'WONK' 1;
+  font-weight: 700;
+  color: var(--plum);
+  line-height: 1.05;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
   margin: 0 0 0.5em;
 }
 
-h1 { font-size: 2.6rem; }
-h2 { font-size: 1.9rem; }
-h3 { font-size: 1.3rem; }
+h1 { font-size: clamp(2.4rem, 1.6rem + 3vw, 3.6rem); }
+h2 { font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2.1rem); }
+h3 { font-size: 1.3rem; font-weight: 600; }
 
 p { margin: 0 0 1em; }
 
-a { color: var(--navy); text-decoration: none; border-bottom: 1px solid var(--accent); transition: color 0.2s; }
-a:hover { color: var(--accent); }
+a {
+  color: var(--indigo);
+  text-decoration: none;
+  border-bottom: 2px solid var(--orange);
+  transition: color 0.15s, border-color 0.15s;
+}
+a:hover { color: var(--orange); }
+a:focus-visible {
+  outline: 3px solid var(--indigo);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
 
 .container {
   max-width: var(--max-width);
@@ -43,10 +100,10 @@ a:hover { color: var(--accent); }
   padding: 0 1.5rem;
 }
 
-/* Nav */
+/* ---------- Nav ---------- */
 .site-header {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
+  background: var(--ground);
+  border-bottom: 2px solid var(--ink);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -58,12 +115,15 @@ a:hover { color: var(--accent); }
   padding: 1rem 0;
 }
 .nav-brand {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--navy);
+  font-family: var(--f-display);
+  font-variation-settings: 'SOFT' 0, 'WONK' 1;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--plum);
   border: none;
+  letter-spacing: -0.015em;
 }
+.nav-brand:hover { color: var(--orange); }
 .nav-links {
   display: flex;
   gap: 1.75rem;
@@ -74,23 +134,21 @@ a:hover { color: var(--accent); }
 .nav-links a {
   border: none;
   font-size: 0.95rem;
-  color: var(--muted);
+  font-weight: 500;
+  color: var(--dim);
   position: relative;
-  padding-bottom: 2px;
+  padding-bottom: 3px;
 }
 .nav-links a:hover,
-.nav-links a.active {
-  color: var(--navy);
-}
+.nav-links a.active { color: var(--ink); }
 .nav-links a.active::after {
   content: '';
   position: absolute;
-  left: 0; right: 0; bottom: -2px;
-  height: 2px;
-  background: var(--accent);
+  left: 0; right: 0; bottom: -3px;
+  height: 3px;
+  background: var(--orange);
 }
 
-/* Nav toggle (mobile) */
 .nav-toggle {
   display: none;
   background: none;
@@ -98,104 +156,160 @@ a:hover { color: var(--accent); }
   cursor: pointer;
   padding: 0.25rem 0.5rem;
   font-size: 1.5rem;
-  color: var(--navy);
+  color: var(--ink);
 }
+.nav-toggle:focus-visible { outline: 3px solid var(--indigo); outline-offset: 2px; }
 
-/* Main */
-main { padding: 3rem 0; }
+/* ---------- Main ---------- */
+main { padding: 3.5rem 0 1rem; }
 section { margin-bottom: 3.5rem; }
 
 .eyebrow {
   font-size: 0.8rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--accent);
-  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: var(--teal);
   margin-bottom: 0.75rem;
 }
 
-/* Hero */
+/* ---------- Hero ---------- */
 .hero {
   display: grid;
   grid-template-columns: 280px 1fr;
-  gap: 3rem;
+  gap: 3.5rem;
   align-items: center;
-  margin-bottom: 4rem;
+  margin-bottom: 4.5rem;
+}
+
+/* Daylight Blocks: a solid organic shape sits behind the photo, offset so the
+   silhouette reads as deliberate rather than as a drop shadow. */
+.hero-figure {
+  position: relative;
+  width: 260px;
+  height: 260px;
+}
+.hero-figure::before {
+  content: '';
+  position: absolute;
+  inset: -20px -24px 10px -16px;
+  background: var(--indigo);
+  border-radius: 62% 38% 45% 55% / 48% 58% 42% 52%;
+  z-index: 0;
 }
 .hero-image {
-  width: 280px;
-  height: 280px;
+  position: relative;
+  z-index: 1;
+  width: 260px;
+  height: 260px;
   border-radius: 50%;
   object-fit: cover;
-  background: var(--border);
-  box-shadow: 0 4px 24px rgba(44, 62, 80, 0.08);
+  display: block;
+  background: var(--rule);
 }
+
+/* The rail: a rotated mono kicker running up the left edge of the photo.
+   It carries something the headline doesn't already say — the name is right
+   there in the h1, so spending the callout on it twice would be a waste. */
+.hero-rail {
+  position: absolute;
+  z-index: 2;
+  left: -46px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: center;
+  font-family: var(--f-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--indigo);
+  white-space: nowrap;
+}
+.hero-rail::after {
+  content: '';
+  display: inline-block;
+  width: 34px;
+  height: 2px;
+  background: var(--orange);
+  vertical-align: middle;
+  margin-left: 0.75rem;
+}
+
 .hero-text h1 { margin-bottom: 0.5rem; }
 .hero-text .lede {
   font-size: 1.15rem;
-  color: var(--navy);
+  line-height: 1.55;
+  color: var(--ink);
   max-width: 42ch;
 }
 
-/* Cards */
+/* ---------- Cards ---------- */
 .cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
 }
 .card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 1.75rem;
-  transition: transform 0.2s, box-shadow 0.2s;
+  padding: 1.85rem 1.6rem;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
 }
-.card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(44, 62, 80, 0.06);
-}
-.card h3 {
-  font-size: 1.15rem;
-  margin-bottom: 0.75rem;
-}
-.card p {
-  color: var(--muted);
-  font-size: 0.95rem;
-  margin-bottom: 0;
+.card h3 { font-size: 1.2rem; margin-bottom: 0.6rem; }
+.card p { font-size: 0.95rem; margin-bottom: 0; }
+.card .eyebrow { margin-bottom: 0.6rem; }
+.card a { border-bottom-width: 2px; }
+
+/* Flat solid fills. Each card owns a colour; text inverts to the ground. */
+.card--indigo { background: var(--indigo); }
+.card--teal   { background: var(--teal); }
+.card--plum   { background: var(--plum); }
+
+.card--indigo, .card--teal, .card--plum { color: #fff; }
+.card--indigo h3, .card--teal h3, .card--plum h3 { color: #fff; }
+.card--indigo .eyebrow, .card--teal .eyebrow, .card--plum .eyebrow { color: var(--orange); }
+.card--indigo a, .card--teal a, .card--plum a { color: #fff; border-bottom-color: var(--orange); }
+.card--indigo a:hover, .card--teal a:hover, .card--plum a:hover { color: var(--orange); }
+.card--indigo a:focus-visible, .card--teal a:focus-visible, .card--plum a:focus-visible {
+  outline-color: #fff;
 }
 
-/* Resume-style */
-.resume-section { margin-bottom: 2.75rem; }
+/* ---------- Resume ---------- */
+.resume-section { margin-bottom: 3rem; }
 .resume-section h2 {
-  border-bottom: 2px solid var(--accent);
-  padding-bottom: 0.5rem;
+  border-bottom: 3px solid var(--orange);
+  padding-bottom: 0.4rem;
   margin-bottom: 1.5rem;
 }
-.entry { margin-bottom: 1.5rem; }
+.entry { margin-bottom: 1.6rem; }
 .entry-header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   gap: 1rem;
   flex-wrap: wrap;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.2rem;
 }
 .entry-title {
-  font-weight: 600;
-  color: var(--navy);
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--f-body);
+  font-weight: 700;
   font-size: 1.05rem;
+  color: var(--ink);
 }
-.entry-org { color: var(--accent); font-weight: 500; }
+.entry-org { color: var(--indigo); font-weight: 600; }
 .entry-date {
-  color: var(--muted);
-  font-size: 0.9rem;
+  font-family: var(--f-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  color: var(--dim);
   white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 .entry-desc {
-  color: var(--navy);
-  font-size: 0.95rem;
-  margin-top: 0.35rem;
+  color: var(--ink);
+  font-size: 0.97rem;
+  margin-top: 0.4rem;
+  max-width: var(--measure);
 }
 .entry-list {
   list-style: none;
@@ -203,152 +317,147 @@ section { margin-bottom: 3.5rem; }
   margin: 0;
 }
 .entry-list li {
-  padding: 0.5rem 0;
-  border-bottom: 1px solid var(--border);
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--rule);
   display: flex;
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
 }
 .entry-list li:last-child { border-bottom: none; }
+.entry-list .entry-role {
+  color: var(--dim);
+  font-size: 0.9rem;
+}
 
-/* Prose */
-.prose { max-width: 65ch; }
-.prose p { font-size: 1.05rem; }
+/* ---------- Prose ---------- */
+.prose { max-width: var(--measure); }
+.prose p { font-size: 1.07rem; }
+.prose > p:first-of-type::first-letter {
+  font-family: var(--f-display);
+  font-variation-settings: 'SOFT' 0, 'WONK' 1;
+  font-weight: 700;
+  color: var(--orange);
+  float: left;
+  font-size: 3.4em;
+  line-height: 0.78;
+  padding: 0.06em 0.09em 0 0;
+}
 
-/* Contact */
+/* ---------- Contact ---------- */
 .contact-list {
   list-style: none;
   padding: 0;
   margin: 2rem 0;
   display: grid;
   gap: 1rem;
-  max-width: 500px;
+  max-width: 520px;
 }
 .contact-list li {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
   gap: 1rem;
   padding: 1rem 1.25rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 6px;
+  background: var(--panel);
+  border: 2px solid var(--ink);
 }
 .contact-list .label {
-  color: var(--muted);
-  font-size: 0.9rem;
+  font-family: var(--f-mono);
+  color: var(--dim);
+  font-size: 0.78rem;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
 }
 
-/* Password gate */
-.gate {
-  max-width: 420px;
-  margin: 3rem auto;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 2.5rem 2rem;
-  text-align: center;
-}
-.gate h2 { margin-bottom: 0.5rem; }
-.gate p { color: var(--muted); font-size: 0.95rem; }
-.gate form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
-}
-.gate input[type="password"] {
-  font-family: inherit;
+/* ---------- Call to action ---------- */
+.cta {
+  display: inline-block;
+  background: var(--orange);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-bottom-width: 2px;
+  font-family: var(--f-body);
+  font-weight: 700;
   font-size: 1rem;
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  background: var(--bg);
-  color: var(--navy);
-}
-.gate input[type="password"]:focus {
-  outline: none;
-  border-color: var(--accent);
-}
-.gate button {
-  font-family: inherit;
-  font-size: 1rem;
-  padding: 0.75rem 1rem;
-  background: var(--navy);
-  color: var(--surface);
-  border: none;
-  border-radius: 4px;
+  padding: 0.7rem 1.4rem;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: transform 0.12s, background 0.15s;
 }
-.gate button:hover { background: var(--accent); }
-.gate-error {
-  color: #b1463a;
-  font-size: 0.9rem;
-  margin-top: 0.75rem;
-  min-height: 1.2em;
-}
+.cta:hover { background: #ffa055; color: var(--ink); transform: translate(-2px, -2px); }
+.cta:focus-visible { outline: 3px solid var(--indigo); outline-offset: 3px; }
 
-.confidential-note {
-  background: #f1ede5;
-  border-left: 3px solid var(--accent);
-  padding: 1rem 1.25rem;
-  margin-bottom: 2rem;
-  font-size: 0.95rem;
-  color: var(--navy);
-  border-radius: 0 4px 4px 0;
-}
-
-/* Footer */
+/* ---------- Footer ---------- */
 .site-footer {
-  border-top: 1px solid var(--border);
+  border-top: 2px solid var(--ink);
+  margin-top: 4rem;
   padding: 2rem 0;
-  color: var(--muted);
+  color: var(--dim);
   font-size: 0.9rem;
   text-align: center;
-  background: var(--surface);
+  background: var(--ground);
 }
 
-/* Responsive */
-@media (max-width: 720px) {
-  h1 { font-size: 2rem; }
-  h2 { font-size: 1.5rem; }
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  .cards { grid-template-columns: 1fr; }
+}
 
+@media (max-width: 720px) {
   .nav-toggle { display: block; }
   .nav-links {
     display: none;
     position: absolute;
     top: 100%;
     left: 0; right: 0;
-    background: var(--surface);
+    background: var(--ground);
     flex-direction: column;
     gap: 0;
     padding: 0.5rem 1.5rem 1rem;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 2px solid var(--ink);
   }
   .nav-links.open { display: flex; }
   .nav-links a {
     padding: 0.75rem 0;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--rule);
   }
   .nav-links li:last-child a { border-bottom: none; }
 
   .hero {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 2.25rem;
     text-align: center;
+    margin-bottom: 3rem;
   }
-  .hero-image {
-    width: 200px;
-    height: 200px;
-    margin: 0 auto;
-  }
+  .hero-figure { margin: 0 auto; width: 210px; height: 210px; }
+  .hero-image { width: 210px; height: 210px; }
+  .hero-rail { left: -38px; }
   .hero-text .lede { margin-left: auto; margin-right: auto; }
-
-  .cards { grid-template-columns: 1fr; }
 
   .entry-header { flex-direction: column; gap: 0.15rem; }
   .entry-date { white-space: normal; }
+
+  .prose > p:first-of-type::first-letter { font-size: 3em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Must stay last in the file. The card fills are set by equal-specificity
+   rules above, so these overrides only win by source order. The dark tokens
+   are deliberately not reused here: those hues are tuned for links and text
+   on a dark ground, and are too pale to sit behind white card copy. */
+@media (prefers-color-scheme: dark) {
+  .card--indigo { background: #3a49a8; }
+  .card--teal   { background: #146d66; }
+  .card--plum   { background: #4a3470; }
+
+  .site-header, .site-footer { border-color: var(--rule); }
+  .contact-list li { border-color: var(--rule); }
+  .cta { border-color: var(--rule); color: #191a2e; }
+  .cta:hover { color: #191a2e; }
 }

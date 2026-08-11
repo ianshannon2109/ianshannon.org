@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -124,6 +124,26 @@
   }
   .share{display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap; margin-top:1.4rem;}
   .share .btn{margin-top:0;}
+  /* Secondary share targets, for desktop where the native share sheet
+     usually isn't available and a clipboard copy is a dead end. */
+  .sharealt{
+    display:flex; gap:1.1rem; justify-content:center; flex-wrap:wrap;
+    margin-top:.8rem; font-family:var(--f-ui); font-size:.88rem;
+  }
+  .sharealt a{color:var(--sub); text-decoration:none; border-bottom:1px solid var(--line);}
+  .sharealt a:hover{color:var(--accent); border-bottom-color:var(--accent);}
+  .sharealt a:focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+  /* The report hook. Every result screen ends here — including the one a
+     friend lands on, which previously went nowhere. */
+  .report-cta{
+    margin-top:1.6rem; padding-top:1.3rem; border-top:1px solid var(--line);
+    text-align:center;
+  }
+  .report-cta p{
+    font-family:var(--f-ui); font-size:.92rem; color:var(--sub);
+    margin:0 0 .8rem; line-height:1.5;
+  }
+  .report-cta .btn{margin-top:0;}
   footer{margin-top:2rem; text-align:center; color:var(--sub); font-size:.85rem; line-height:1.6;}
   .hidden{display:none;}
   @media (max-width:480px){
@@ -420,14 +440,29 @@ function shareText(primary, partner, tied){
          '% of donors land here. What type of donor are you?';
 }
 
-function copyShare(primary, partner, tied){
-  const url=location.href.split('#')[0]+'#result='+primary+(tied&&partner?'-'+partner:'');
-  const text=shareText(primary,partner,tied)+' '+url;
+function resultUrl(primary, partner, tied){
+  return location.href.split('#')[0]+'#result='+primary+(tied&&partner?'-'+partner:'');
+}
+
+// The shared link points back at the quiz, not the report: a recipient who
+// lands on a real result is far likelier to go on to the report than one who
+// gets dropped straight into a PDF pitch.
+function shareResult(primary, partner, tied){
+  const url=resultUrl(primary,partner,tied);
+  const text=shareText(primary,partner,tied);
   const btn=document.getElementById('shareBtn');
-  const ok=()=>{ if(btn){ btn.textContent='Copied. Go paste it.'; setTimeout(()=>{btn.textContent='Copy my result';},2200);} };
+
+  if(navigator.share){
+    navigator.share({title:'What Type of Donor Are You?', text:text, url:url})
+      .catch(()=>{ /* dismissing the sheet is a normal outcome, not an error */ });
+    return;
+  }
+
+  const full=text+' '+url;
+  const ok=()=>{ if(btn){ btn.textContent='Copied. Go paste it.'; setTimeout(()=>{btn.textContent='Share my results';},2200);} };
   if(navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(text).then(ok, ()=>legacyCopy(text,ok));
-  } else { legacyCopy(text,ok); }
+    navigator.clipboard.writeText(full).then(ok, ()=>legacyCopy(full,ok));
+  } else { legacyCopy(full,ok); }
 }
 function legacyCopy(text, ok){
   const ta=document.createElement('textarea');
@@ -480,20 +515,37 @@ function renderResult(primary, partner, tied, mine){
     });
     body+='<div class="sec"><h3>Your full profile</h3><div class="profile">'+bars+'</div></div>';
   }
+  const reportCta=
+    '<div class="report-cta">'+
+      '<p>These four types come from <em>Giving Without Knowing</em>, a study of how 25 major donors and 11 professional advisors actually decide where their money goes.</p>'+
+      '<a class="btn ghost" href="/capstone">Read the full report</a>'+
+    '</div>';
+
   let actions;
   if(mine){
-    actions='<div class="share"><button class="btn" id="shareBtn">Copy my result</button>'+
+    const url=resultUrl(primary, partner, tied);
+    const text=shareText(primary, partner, tied);
+    const xHref='https://twitter.com/intent/tweet?text='+encodeURIComponent(text)+'&url='+encodeURIComponent(url);
+    // LinkedIn dropped support for prefilled text; it reads the URL only.
+    const inHref='https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(url);
+    actions='<div class="share"><button class="btn" id="shareBtn">Share my results</button>'+
             '<button class="btn ghost" onclick="start()">Take it again</button></div>'+
-            '<p class="muted center" style="margin-top:.7rem;">Copies a one-line result and a link. Nothing is sent anywhere.</p>';
+            '<div class="sharealt">'+
+              '<a href="'+xHref+'" target="_blank" rel="noopener">Post on X</a>'+
+              '<a href="'+inHref+'" target="_blank" rel="noopener">Share on LinkedIn</a>'+
+            '</div>'+
+            '<p class="muted center" style="margin-top:.7rem;">Your answers stay in this browser. Nothing is sent anywhere until you pick where.</p>'+
+            reportCta;
   } else {
-    actions='<div class="share"><button class="btn" onclick="start()">Find out what I am</button></div>';
+    actions='<div class="share"><button class="btn" onclick="start()">Find out what I am</button></div>'+
+            reportCta;
   }
   document.getElementById('result').innerHTML=
     (mine?'':'<p class="shared-note">Someone shared their result with you.</p>')+
     '<div class="center">'+band+head+rarity+'</div>'+body+actions;
   document.getElementById('result').classList.remove('hidden');
   const sb=document.getElementById('shareBtn');
-  if(sb){ sb.onclick=function(){ copyShare(primary, partner, tied); }; }
+  if(sb){ sb.onclick=function(){ shareResult(primary, partner, tied); }; }
 }
 
 (function initFromHash(){

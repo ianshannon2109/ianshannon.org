@@ -1,0 +1,18 @@
+# Files in the repo root that should not be published as static assets.
+# Without this, "assets.directory": "." would serve the worker source and the
+# git history from ianshannon.org.
+.git
+.github
+.gitignore
+.assetsignore
+wrangler.jsonc
+worker.js
+schema.sql
+README.md
+
+# Local-only. .wrangler also has to be listed here rather than only in
+# .gitignore: while it's inside the assets root, `wrangler dev` watches its own
+# state directory and reloads in a loop.
+.wrangler
+.dev.vars
+node_modules

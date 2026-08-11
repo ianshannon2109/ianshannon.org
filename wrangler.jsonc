@@ -1,0 +1,32 @@
+{
+  // Deployed by Cloudflare Workers Builds on every push to main.
+  // The worker name must keep matching the existing service, or the deploy
+  // creates a second worker instead of updating the live one.
+  "name": "ianshannonorg",
+  "main": "worker.js",
+  "compatibility_date": "2026-08-01",
+
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS"
+  },
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "ianshannon-leads",
+      // Replace with the id printed by: npx wrangler d1 create ianshannon-leads
+      "database_id": "REPLACE_ME"
+    }
+  ],
+
+  "r2_buckets": [
+    {
+      "binding": "REPORTS",
+      "bucket_name": "ianshannon-reports"
+    }
+  ]
+
+  // REPORT_SIGNING_KEY is set with `npx wrangler secret put REPORT_SIGNING_KEY`
+  // and deliberately does not appear here.
+}

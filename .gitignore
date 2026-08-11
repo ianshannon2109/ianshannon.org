@@ -1,0 +1,7 @@
+# Local Worker secrets — never commit. Production values are set with
+# `npx wrangler secret put <NAME>`.
+.dev.vars
+
+# Wrangler's local state (emulated D1, R2, KV) and installed deps.
+.wrangler/
+node_modules/
