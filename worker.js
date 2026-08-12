@@ -179,6 +179,14 @@ export default {
   async fetch(request, env) {
     const { pathname } = new URL(request.url);
 
+    // Fail closed if the signing key is absent. Without this the key would
+    // coerce to the string "undefined" and every token would be forgeable by
+    // anyone who guessed that — worse than the endpoint simply being down.
+    if (pathname.startsWith('/api/') && !env.REPORT_SIGNING_KEY) {
+      console.error('REPORT_SIGNING_KEY is not set; refusing to issue or verify links.');
+      return json({ error: 'The report link service is temporarily unavailable.' }, 503);
+    }
+
     if (pathname === '/api/report-access') {
       if (request.method !== 'POST') return json({ error: 'Method not allowed.' }, 405);
       return handleReportAccess(request, env);
