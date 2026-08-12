@@ -1,54 +1,51 @@
-/* ianshannon.org — "Editorial Bloom"
-   Light lavender ground, bold flat colour shapes, hard-cornered solid cards.
-   Fraunces (WONK axis on, for the wonky alternates) over Public Sans.
-   Deliberately absent: dark or near-black grounds. The capstone page spends
-   that on its petrol masthead, and it only reads as a threshold because
-   nothing else on the site goes dark. */
+/* ianshannon.org — "Coral Signal"
+   The same brand as the capstone report, the giving quiz and the printed promo
+   one-pager. Petrol structure, coral accent, verdant and sky in support.
+   Archivo Black over Source Serif 4, with Public Sans doing interface work.
+
+   Archivo Black has a single weight and no variable axes, so headings never ask
+   for 700 — that would only trigger a synthetic bold. Anything small or dense
+   (job titles, nav, labels) stays on Public Sans; a poster face at 1rem, fifteen
+   entries deep, is a shout. */
 
 :root {
-  --indigo: #35459e;
-  --teal:   #147d73;
-  --plum:   #3d2a5c;
-  --orange: #f2822e;
+  --petrol:  #083d4e;
+  --coral:   #ff5a5f;
+  --sky:     #9bd6ea;
+  --verdant: #12b886;
+  --flare:   #ffd02f;
 
-  --ground: #f1f2f7;
-  --panel:  #fdfdff;
-  --ink:    #1b1d2a;
-  --dim:    #5b5f7a;
-  --rule:   #c9ccde;
+  --ground: #fbfbf9;
+  --panel:  #ffffff;
+  --ink:    #31434c;
+  --dim:    #5f7078;
+  --rule:   #e2e6e3;
 
-  /* Tints for flat fills that still take dark text */
-  --indigo-wash: #e4e7f5;
-  --teal-wash:   #dbeeea;
-  --orange-wash: #fdead9;
+  --link:   #083d4e;
+  --accent: #ff5a5f;
 
   --max-width: 1080px;
   --measure: 62ch;
 
-  --f-display: 'Fraunces', Georgia, 'Times New Roman', serif;
-  --f-body: 'Public Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --f-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  --f-display: 'Archivo Black', 'Arial Black', sans-serif;
+  --f-body: 'Source Serif 4', Georgia, Cambria, 'Times New Roman', serif;
+  --f-ui: 'Public Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-mono: 'IBM Plex Mono', Consolas, monospace;
 }
 
-/* Dark mode keeps the palette's own hue instead of dropping to neutral black.
-   "No near-black grounds" is a light-mode identity rule; abandoning the indigo
-   family after dark would just make it a different site at night. */
+/* Mirrors the quiz's dark values so the two never drift apart. */
 @media (prefers-color-scheme: dark) {
   :root {
-    --ground: #191a2e;
-    --panel:  #22243a;
-    --ink:    #e8e9f5;
-    --dim:    #9a9ebe;
-    --rule:   #383b60;
+    --ground: #071d26;
+    --panel:  #0d2b37;
+    --ink:    #deeaef;
+    --dim:    #9db4bd;
+    --rule:   #1e4354;
 
-    --indigo: #7d8ce0;
-    --teal:   #3fb5a5;
-    --plum:   #b9a5dd;
-    --orange: #f79447;
-
-    --indigo-wash: #262a4a;
-    --teal-wash:   #1c3a3a;
-    --orange-wash: #3a2a1c;
+    --petrol: #0c3140;
+    --link:   #9bd6ea;
+    --accent: #ff6b70;
+    --verdant:#2fd3a5;
   }
 }
 
@@ -64,32 +61,43 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4 {
+h1, h2 {
   font-family: var(--f-display);
-  font-variation-settings: 'SOFT' 0, 'WONK' 1;
+  font-weight: 400;
+  color: var(--petrol);
+  line-height: 1.02;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+  margin: 0 0 0.5em;
+}
+h3, h4 {
+  font-family: var(--f-ui);
   font-weight: 700;
-  color: var(--plum);
-  line-height: 1.05;
-  letter-spacing: -0.012em;
+  color: var(--petrol);
+  line-height: 1.25;
   text-wrap: balance;
   margin: 0 0 0.5em;
 }
 
-h1 { font-size: clamp(2.4rem, 1.6rem + 3vw, 3.6rem); }
-h2 { font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2.1rem); }
-h3 { font-size: 1.3rem; font-weight: 600; }
+h1 { font-size: clamp(2.3rem, 1.5rem + 3vw, 3.4rem); }
+h2 { font-size: clamp(1.5rem, 1.25rem + 1.1vw, 1.95rem); }
+h3 { font-size: 1.2rem; }
+
+@media (prefers-color-scheme: dark) {
+  h1, h2, h3, h4 { color: #f2f7f9; }
+}
 
 p { margin: 0 0 1em; }
 
 a {
-  color: var(--indigo);
+  color: var(--link);
   text-decoration: none;
-  border-bottom: 2px solid var(--orange);
+  border-bottom: 2px solid var(--accent);
   transition: color 0.15s, border-color 0.15s;
 }
-a:hover { color: var(--orange); }
+a:hover { color: var(--accent); }
 a:focus-visible {
-  outline: 3px solid var(--indigo);
+  outline: 3px solid var(--accent);
   outline-offset: 3px;
   border-radius: 1px;
 }
@@ -103,7 +111,7 @@ a:focus-visible {
 /* ---------- Nav ---------- */
 .site-header {
   background: var(--ground);
-  border-bottom: 2px solid var(--ink);
+  border-bottom: 2px solid var(--petrol);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -116,14 +124,13 @@ a:focus-visible {
 }
 .nav-brand {
   font-family: var(--f-display);
-  font-variation-settings: 'SOFT' 0, 'WONK' 1;
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: var(--plum);
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: var(--petrol);
   border: none;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.005em;
 }
-.nav-brand:hover { color: var(--orange); }
+.nav-brand:hover { color: var(--accent); }
 .nav-links {
   display: flex;
   gap: 1.75rem;
@@ -132,21 +139,22 @@ a:focus-visible {
   padding: 0;
 }
 .nav-links a {
+  font-family: var(--f-ui);
   border: none;
-  font-size: 0.95rem;
-  font-weight: 500;
+  font-size: 0.93rem;
+  font-weight: 600;
   color: var(--dim);
   position: relative;
   padding-bottom: 3px;
 }
 .nav-links a:hover,
-.nav-links a.active { color: var(--ink); }
+.nav-links a.active { color: var(--petrol); }
 .nav-links a.active::after {
   content: '';
   position: absolute;
   left: 0; right: 0; bottom: -3px;
   height: 3px;
-  background: var(--orange);
+  background: var(--accent);
 }
 
 .nav-toggle {
@@ -156,125 +164,94 @@ a:focus-visible {
   cursor: pointer;
   padding: 0.25rem 0.5rem;
   font-size: 1.5rem;
-  color: var(--ink);
+  color: var(--petrol);
 }
-.nav-toggle:focus-visible { outline: 3px solid var(--indigo); outline-offset: 2px; }
+.nav-toggle:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
-/* ---------- Main ----------
-   Generous vertical room on purpose. The hero is a photo, a name and two
-   short paragraphs; crowded against the nav rule it reads like a header
-   rather than a page. */
+/* ---------- Main ---------- */
 main { padding: 5.5rem 0 4.5rem; }
 section { margin-bottom: 3.5rem; }
 
 .eyebrow {
-  font-size: 0.8rem;
+  font-family: var(--f-ui);
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  color: var(--teal);
+  color: var(--verdant);
   margin-bottom: 0.75rem;
 }
 
-/* ---------- Hero ---------- */
+/* ---------- Hero ----------
+   A hard square with a solid petrol rectangle offset behind it. The block is
+   the whole structure here: nothing else sits on the homepage, so the photo
+   needs something to be anchored against. */
 .hero {
   display: grid;
-  grid-template-columns: 280px 1fr;
+  grid-template-columns: 300px 1fr;
   gap: 3.5rem;
   align-items: center;
-  /* Nothing follows the hero on the homepage any more, so trailing space is
-     main's padding-bottom rather than a margin stacked on top of it. */
   margin-bottom: 0;
 }
-
-/* Daylight Blocks: a solid organic shape sits behind the photo, offset so the
-   silhouette reads as deliberate rather than as a drop shadow. */
 .hero-figure {
   position: relative;
   width: 260px;
   height: 260px;
 }
-/* An even ring on all four sides. The organic border-radius still keeps it
-   from reading as a plain circle, but the photo now sits centred inside it
-   rather than low and to the right. */
 .hero-figure::before {
   content: '';
   position: absolute;
-  inset: -22px;
-  background: var(--indigo);
-  border-radius: 62% 38% 45% 55% / 48% 58% 42% 52%;
   z-index: 0;
+  left: 20px;
+  top: 20px;
+  right: -20px;
+  bottom: -20px;
+  background: var(--petrol);
 }
 .hero-image {
   position: relative;
   z-index: 1;
   width: 260px;
   height: 260px;
-  border-radius: 50%;
   object-fit: cover;
   display: block;
   background: var(--rule);
 }
 
-/* The homepage's only route to the capstone now that the cards are gone.
-   Deliberately a line of text, not a card — the page is meant to stay spare. */
-.hero-note {
-  margin: 1.35rem 0 0;
-  font-size: 0.98rem;
-  color: var(--dim);
-  max-width: 42ch;
-}
-.hero-note::before {
-  content: '\2192';
-  color: var(--orange);
-  font-weight: 700;
-  margin-right: 0.5rem;
-}
-.hero-note a { color: var(--indigo); font-weight: 600; }
-
 .hero-text h1 { margin-bottom: 0.5rem; }
 .hero-text .lede {
-  font-size: 1.15rem;
+  font-size: 1.12rem;
   line-height: 1.55;
   color: var(--ink);
   max-width: 42ch;
 }
 
-/* ---------- Cards ---------- */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+/* The homepage's only route to the capstone. Deliberately a line of text
+   rather than a card — the page is meant to stay spare. */
+.hero-note {
+  font-family: var(--f-ui);
+  margin: 1.35rem 0 0;
+  font-size: 0.95rem;
+  color: var(--dim);
+  max-width: 42ch;
 }
-.card {
-  padding: 1.85rem 1.6rem;
-  border-radius: 0;
-  display: flex;
-  flex-direction: column;
+.hero-note::before {
+  content: '\2192';
+  color: var(--accent);
+  font-weight: 700;
+  margin-right: 0.5rem;
 }
-.card h3 { font-size: 1.2rem; margin-bottom: 0.6rem; }
-.card p { font-size: 0.95rem; margin-bottom: 0; }
-.card .eyebrow { margin-bottom: 0.6rem; }
-.card a { border-bottom-width: 2px; }
+.hero-note a { color: var(--petrol); font-weight: 700; }
 
-/* Flat solid fills. Each card owns a colour; text inverts to the ground. */
-.card--indigo { background: var(--indigo); }
-.card--teal   { background: var(--teal); }
-.card--plum   { background: var(--plum); }
-
-.card--indigo, .card--teal, .card--plum { color: #fff; }
-.card--indigo h3, .card--teal h3, .card--plum h3 { color: #fff; }
-.card--indigo .eyebrow, .card--teal .eyebrow, .card--plum .eyebrow { color: var(--orange); }
-.card--indigo a, .card--teal a, .card--plum a { color: #fff; border-bottom-color: var(--orange); }
-.card--indigo a:hover, .card--teal a:hover, .card--plum a:hover { color: var(--orange); }
-.card--indigo a:focus-visible, .card--teal a:focus-visible, .card--plum a:focus-visible {
-  outline-color: #fff;
+@media (prefers-color-scheme: dark) {
+  .hero-figure::before { background: #12455a; }
+  .hero-note a { color: var(--sky); }
 }
 
 /* ---------- Resume ---------- */
 .resume-section { margin-bottom: 3rem; }
 .resume-section h2 {
-  border-bottom: 3px solid var(--orange);
+  border-bottom: 3px solid var(--accent);
   padding-bottom: 0.4rem;
   margin-bottom: 1.5rem;
 }
@@ -288,15 +265,20 @@ section { margin-bottom: 3.5rem; }
   margin-bottom: 0.2rem;
 }
 .entry-title {
-  font-family: var(--f-body);
+  font-family: var(--f-ui);
   font-weight: 700;
-  font-size: 1.05rem;
-  color: var(--ink);
+  font-size: 1.02rem;
+  color: var(--petrol);
 }
-.entry-org { color: var(--indigo); font-weight: 600; }
+.entry-org {
+  font-family: var(--f-ui);
+  font-size: 0.97rem;
+  color: var(--dim);
+  font-weight: 600;
+}
 .entry-date {
   font-family: var(--f-mono);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   letter-spacing: 0.02em;
   color: var(--dim);
   white-space: nowrap;
@@ -304,21 +286,26 @@ section { margin-bottom: 3.5rem; }
 }
 .entry-desc {
   color: var(--ink);
-  font-size: 0.97rem;
+  font-size: 1rem;
   margin-top: 0.4rem;
   max-width: var(--measure);
 }
-/* Early roles nested under the undergraduate degree, where they belong
-   chronologically, rather than as separate career-history entries. */
+
+@media (prefers-color-scheme: dark) {
+  .entry-title { color: #f2f7f9; }
+}
+
+/* Early roles nested under the undergraduate degree. */
 .sub-list {
   list-style: none;
   padding: 0;
   margin: 0.6rem 0 0;
+  font-family: var(--f-ui);
 }
 .sub-list li {
   position: relative;
   padding: 0.3rem 0 0.3rem 0.95rem;
-  font-size: 0.95rem;
+  font-size: 0.93rem;
   max-width: var(--measure);
 }
 .sub-list li::before {
@@ -328,14 +315,15 @@ section { margin-bottom: 3.5rem; }
   top: 0.95em;
   width: 5px;
   height: 5px;
-  background: var(--teal);
+  background: var(--verdant);
 }
-.sub-list b { font-weight: 700; color: var(--ink); }
+.sub-list b { font-weight: 700; color: var(--petrol); }
 
 .entry-list {
   list-style: none;
   padding: 0;
   margin: 0;
+  font-family: var(--f-ui);
 }
 .entry-list li {
   padding: 0.7rem 0;
@@ -344,6 +332,7 @@ section { margin-bottom: 3.5rem; }
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
+  font-size: 0.97rem;
 }
 .entry-list li:last-child { border-bottom: none; }
 .entry-list .entry-role {
@@ -351,19 +340,15 @@ section { margin-bottom: 3.5rem; }
   font-size: 0.9rem;
 }
 
-/* ---------- Prose ---------- */
-.prose { max-width: var(--measure); }
-.prose p { font-size: 1.07rem; }
-.prose > p:first-of-type::first-letter {
-  font-family: var(--f-display);
-  font-variation-settings: 'SOFT' 0, 'WONK' 1;
-  font-weight: 700;
-  color: var(--orange);
-  float: left;
-  font-size: 3.4em;
-  line-height: 0.78;
-  padding: 0.06em 0.09em 0 0;
+@media (prefers-color-scheme: dark) {
+  .sub-list b { color: #f2f7f9; }
 }
+
+/* ---------- Prose ----------
+   No drop cap. It fought the apostrophe in "I'm" and read as decoration
+   rather than structure. */
+.prose { max-width: var(--measure); }
+.prose p { font-size: 1.08rem; }
 
 /* ---------- Contact ---------- */
 .contact-list {
@@ -373,6 +358,7 @@ section { margin-bottom: 3.5rem; }
   display: grid;
   gap: 1rem;
   max-width: 520px;
+  font-family: var(--f-ui);
 }
 .contact-list li {
   display: flex;
@@ -381,48 +367,36 @@ section { margin-bottom: 3.5rem; }
   gap: 1rem;
   padding: 1rem 1.25rem;
   background: var(--panel);
-  border: 2px solid var(--ink);
+  border: 2px solid var(--petrol);
 }
 .contact-list .label {
   font-family: var(--f-mono);
   color: var(--dim);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
 }
 
-/* ---------- Call to action ---------- */
-.cta {
-  display: inline-block;
-  background: var(--orange);
-  color: var(--ink);
-  border: 2px solid var(--ink);
-  border-bottom-width: 2px;
-  font-family: var(--f-body);
-  font-weight: 700;
-  font-size: 1rem;
-  padding: 0.7rem 1.4rem;
-  cursor: pointer;
-  transition: transform 0.12s, background 0.15s;
+@media (prefers-color-scheme: dark) {
+  .contact-list li { border-color: var(--rule); }
 }
-.cta:hover { background: #ffa055; color: var(--ink); transform: translate(-2px, -2px); }
-.cta:focus-visible { outline: 3px solid var(--indigo); outline-offset: 3px; }
 
 /* ---------- Footer ---------- */
 .site-footer {
-  border-top: 2px solid var(--ink);
+  border-top: 2px solid var(--petrol);
   padding: 2.5rem 0;
   color: var(--dim);
-  font-size: 0.9rem;
+  font-family: var(--f-ui);
+  font-size: 0.88rem;
   text-align: center;
   background: var(--ground);
 }
 
-/* ---------- Responsive ---------- */
-@media (max-width: 860px) {
-  .cards { grid-template-columns: 1fr; }
+@media (prefers-color-scheme: dark) {
+  .site-header, .site-footer { border-color: var(--rule); }
 }
 
+/* ---------- Responsive ---------- */
 @media (max-width: 720px) {
   main { padding: 3.5rem 0 3rem; }
   .container { padding: 0 1.5rem; }
@@ -437,7 +411,7 @@ section { margin-bottom: 3.5rem; }
     flex-direction: column;
     gap: 0;
     padding: 0.5rem 1.5rem 1rem;
-    border-bottom: 2px solid var(--ink);
+    border-bottom: 2px solid var(--petrol);
   }
   .nav-links.open { display: flex; }
   .nav-links a {
@@ -448,17 +422,17 @@ section { margin-bottom: 3.5rem; }
 
   .hero {
     grid-template-columns: 1fr;
-    gap: 2.25rem;
+    gap: 2.5rem;
     text-align: center;
   }
+  /* The offset block would push past the viewport edge at full size. */
   .hero-figure { margin: 0 auto; width: 210px; height: 210px; }
+  .hero-figure::before { left: 14px; top: 14px; right: -14px; bottom: -14px; }
   .hero-image { width: 210px; height: 210px; }
-  .hero-text .lede { margin-left: auto; margin-right: auto; }
+  .hero-text .lede, .hero-note { margin-left: auto; margin-right: auto; }
 
   .entry-header { flex-direction: column; gap: 0.15rem; }
   .entry-date { white-space: normal; }
-
-  .prose > p:first-of-type::first-letter { font-size: 3em; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -466,19 +440,4 @@ section { margin-bottom: 3.5rem; }
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
-}
-
-/* Must stay last in the file. The card fills are set by equal-specificity
-   rules above, so these overrides only win by source order. The dark tokens
-   are deliberately not reused here: those hues are tuned for links and text
-   on a dark ground, and are too pale to sit behind white card copy. */
-@media (prefers-color-scheme: dark) {
-  .card--indigo { background: #3a49a8; }
-  .card--teal   { background: #146d66; }
-  .card--plum   { background: #4a3470; }
-
-  .site-header, .site-footer { border-color: var(--rule); }
-  .contact-list li { border-color: var(--rule); }
-  .cta { border-color: var(--rule); color: #191a2e; }
-  .cta:hover { color: #191a2e; }
 }
