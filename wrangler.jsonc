@@ -1,0 +1,34 @@
+{
+  // Deployed by Cloudflare Workers Builds on every push to main.
+  // The worker name must keep matching the existing service, or the deploy
+  // creates a second worker instead of updating the live one.
+  "name": "ianshannonorg",
+  "main": "worker.js",
+  "compatibility_date": "2026-08-01",
+
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS"
+  },
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "ianshannon-leads",
+      "database_id": "ff12d4c9-a21c-425f-9885-60d33aa68d9d"
+    }
+  ],
+
+  // The report PDF lives in KV rather than R2. R2 is the better tool for many
+  // or large objects, but it has to be enabled on the account and needs a
+  // payment method; this is one 1.2 MB file, well inside KV's 25 MB value limit.
+  "kv_namespaces": [
+    {
+      "binding": "REPORTS",
+      "id": "3cfb357b5e7249fa853c80a310cb7167"
+    }
+  ]
+
+  // REPORT_SIGNING_KEY is set with `npx wrangler secret put REPORT_SIGNING_KEY`
+  // and deliberately does not appear here.
+}
