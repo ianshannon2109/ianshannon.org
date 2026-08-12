@@ -208,33 +208,6 @@ section { margin-bottom: 3.5rem; }
   background: var(--rule);
 }
 
-/* The rail: a rotated mono kicker running up the left edge of the photo.
-   It carries something the headline doesn't already say — the name is right
-   there in the h1, so spending the callout on it twice would be a waste. */
-.hero-rail {
-  position: absolute;
-  z-index: 2;
-  left: -46px;
-  top: 50%;
-  transform: translateY(-50%) rotate(-90deg);
-  transform-origin: center;
-  font-family: var(--f-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--indigo);
-  white-space: nowrap;
-}
-.hero-rail::after {
-  content: '';
-  display: inline-block;
-  width: 34px;
-  height: 2px;
-  background: var(--orange);
-  vertical-align: middle;
-  margin-left: 0.75rem;
-}
-
 .hero-text h1 { margin-bottom: 0.5rem; }
 .hero-text .lede {
   font-size: 1.15rem;
@@ -431,7 +404,6 @@ section { margin-bottom: 3.5rem; }
   }
   .hero-figure { margin: 0 auto; width: 210px; height: 210px; }
   .hero-image { width: 210px; height: 210px; }
-  .hero-rail { left: -38px; }
   .hero-text .lede { margin-left: auto; margin-right: auto; }
 
   .entry-header { flex-direction: column; gap: 0.15rem; }

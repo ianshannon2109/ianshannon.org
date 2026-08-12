@@ -524,17 +524,16 @@ function renderResult(primary, partner, tied, mine){
   let actions;
   if(mine){
     const url=resultUrl(primary, partner, tied);
-    const text=shareText(primary, partner, tied);
-    const xHref='https://twitter.com/intent/tweet?text='+encodeURIComponent(text)+'&url='+encodeURIComponent(url);
-    // LinkedIn dropped support for prefilled text; it reads the URL only.
+    // Neither network accepts prefilled text any more — both read the URL and
+    // pull the title and description from the page's own meta tags.
+    const fbHref='https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(url);
     const inHref='https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(url);
     actions='<div class="share"><button class="btn" id="shareBtn">Share my results</button>'+
             '<button class="btn ghost" onclick="start()">Take it again</button></div>'+
             '<div class="sharealt">'+
-              '<a href="'+xHref+'" target="_blank" rel="noopener">Post on X</a>'+
+              '<a href="'+fbHref+'" target="_blank" rel="noopener">Post on Facebook</a>'+
               '<a href="'+inHref+'" target="_blank" rel="noopener">Share on LinkedIn</a>'+
             '</div>'+
-            '<p class="muted center" style="margin-top:.7rem;">Your answers stay in this browser. Nothing is sent anywhere until you pick where.</p>'+
             reportCta;
   } else {
     actions='<div class="share"><button class="btn" onclick="start()">Find out what I am</button></div>'+
