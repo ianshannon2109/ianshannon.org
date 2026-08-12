@@ -15,15 +15,17 @@
     {
       "binding": "DB",
       "database_name": "ianshannon-leads",
-      // Replace with the id printed by: npx wrangler d1 create ianshannon-leads
-      "database_id": "REPLACE_ME"
+      "database_id": "ff12d4c9-a21c-425f-9885-60d33aa68d9d"
     }
   ],
 
-  "r2_buckets": [
+  // The report PDF lives in KV rather than R2. R2 is the better tool for many
+  // or large objects, but it has to be enabled on the account and needs a
+  // payment method; this is one 1.2 MB file, well inside KV's 25 MB value limit.
+  "kv_namespaces": [
     {
       "binding": "REPORTS",
-      "bucket_name": "ianshannon-reports"
+      "id": "3cfb357b5e7249fa853c80a310cb7167"
     }
   ]
 

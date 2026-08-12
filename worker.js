@@ -6,9 +6,9 @@
  *
  * Two routes:
  *   POST /api/report-access  -> record a lead, return a signed 24h link
- *   GET  /api/report?t=...   -> verify the link, stream the PDF from R2
+ *   GET  /api/report?t=...   -> verify the link, stream the PDF from KV
  *
- * The PDF lives in R2 rather than the repo so it isn't guessable or crawlable.
+ * The PDF lives in KV rather than the repo so it isn't guessable or crawlable.
  * This is lead capture, not containment: anyone who gets the file can forward
  * it, and that's understood and accepted.
  */
@@ -155,15 +155,16 @@ async function handleReport(request, env) {
   }
   if (!Number.isFinite(exp) || Date.now() > exp) return deny();
 
-  const object = await env.REPORTS.get(REPORT_KEY);
-  if (!object) {
+  // 'stream' so the PDF is piped through rather than buffered in memory.
+  const body = await env.REPORTS.get(REPORT_KEY, 'stream');
+  if (!body) {
     return new Response('The report file is missing. Please email ian@ianshannon.org.', {
       status: 404,
       headers: { 'content-type': 'text/plain; charset=utf-8' },
     });
   }
 
-  return new Response(object.body, {
+  return new Response(body, {
     headers: {
       'content-type': 'application/pdf',
       'content-disposition': `inline; filename="${REPORT_FILENAME}"`,
