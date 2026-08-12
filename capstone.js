@@ -81,7 +81,7 @@
         submit.disabled = false;
         say(
           (result.data && result.data.error) ||
-            'Something went wrong on our end. Try again in a moment, or email ian.shannon@duke.edu.',
+            'Something went wrong on our end. Try again in a moment, or email ian@ianshannon.org.',
           'error'
         );
       })

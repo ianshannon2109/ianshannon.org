@@ -157,7 +157,7 @@ async function handleReport(request, env) {
 
   const object = await env.REPORTS.get(REPORT_KEY);
   if (!object) {
-    return new Response('The report file is missing. Please email ian.shannon@duke.edu.', {
+    return new Response('The report file is missing. Please email ian@ianshannon.org.', {
       status: 404,
       headers: { 'content-type': 'text/plain; charset=utf-8' },
     });

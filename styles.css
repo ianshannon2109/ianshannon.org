@@ -208,6 +208,22 @@ section { margin-bottom: 3.5rem; }
   background: var(--rule);
 }
 
+/* The homepage's only route to the capstone now that the cards are gone.
+   Deliberately a line of text, not a card — the page is meant to stay spare. */
+.hero-note {
+  margin: 1.35rem 0 0;
+  font-size: 0.98rem;
+  color: var(--dim);
+  max-width: 42ch;
+}
+.hero-note::before {
+  content: '\2192';
+  color: var(--orange);
+  font-weight: 700;
+  margin-right: 0.5rem;
+}
+.hero-note a { color: var(--indigo); font-weight: 600; }
+
 .hero-text h1 { margin-bottom: 0.5rem; }
 .hero-text .lede {
   font-size: 1.15rem;
