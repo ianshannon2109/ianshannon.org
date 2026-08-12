@@ -173,13 +173,9 @@
 .stat--open   { background: transparent; border: 1px solid var(--p-line); color: var(--p-ink); }
 .stat--open b { color: var(--verdant); }
 
-/* ---------- split: rules / types ---------- */
-.split {
-  display: grid;
-  grid-template-columns: 1.25fr 1fr;
-  gap: 2.75rem;
-  align-items: start;
-}
+/* ---------- rules / types ----------
+   Each gets its own full-width section. They used to share a two-column
+   split; Ian found the side-by-side overwhelming. */
 .rules { list-style: none; margin: 0; padding: 0; }
 .rules li {
   position: relative;
@@ -199,7 +195,7 @@
 }
 .rules b { color: var(--p-head); font-weight: 600; }
 
-.types { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+.types { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; max-width: 36rem; }
 .type {
   border-radius: 14px;
   padding: 1rem 1rem 0.9rem;
@@ -249,15 +245,13 @@
 .recs b { color: var(--p-head); font-weight: 600; }
 .recs p { font-family: var(--f-ui); font-size: 0.93rem; margin: 0; }
 
-/* ---------- calls to action ---------- */
-.cta-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-}
+/* ---------- calls to action ----------
+   Panels stand alone now, one per section, capped at a reading width so a
+   full-bleed white box doesn't swallow the page. */
 .panel {
   border-radius: 16px;
   padding: 1.9rem 1.75rem;
+  max-width: 44rem;
 }
 .panel--quiz { background: var(--petrol); color: #fff; }
 .panel--quiz h2 { color: #fff; font-size: 1.35rem; margin: 0 0 0.5rem; }
@@ -364,9 +358,7 @@
 /* ---------- responsive ---------- */
 @media (max-width: 860px) {
   .stats { grid-template-columns: 1fr; }
-  .split { grid-template-columns: 1fr; gap: 2rem; }
   .recs { grid-template-columns: 1fr 1fr; }
-  .cta-row { grid-template-columns: 1fr; }
 }
 @media (max-width: 560px) {
   .mast { padding: 2.5rem 0 2.25rem; }

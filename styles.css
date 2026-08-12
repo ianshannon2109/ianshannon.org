@@ -59,7 +59,14 @@ body {
   color: var(--ink);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  /* Short pages (the homepage is a single hero) were letting the footer ride
+     up under the content. The column fills the viewport and main takes the
+     slack, so the footer sits at the bottom and the page keeps its air. */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
+main { flex: 1 0 auto; }
 
 h1, h2 {
   font-family: var(--f-display);
@@ -169,7 +176,7 @@ a:focus-visible {
 .nav-toggle:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
 /* ---------- Main ---------- */
-main { padding: 5.5rem 0 4.5rem; }
+main { padding: 6.5rem 0 5.5rem; }
 section { margin-bottom: 3.5rem; }
 
 .eyebrow {
@@ -419,6 +426,12 @@ section { margin-bottom: 3.5rem; }
     border-bottom: 1px solid var(--rule);
   }
   .nav-links li:last-child a { border-bottom: none; }
+  /* The desktop active state is an absolutely positioned coral bar under the
+     link. In the stacked dropdown that bar lands on top of the next row's
+     divider and reads as a broken strike-through, so the active page is
+     marked by colour instead. */
+  .nav-links a.active::after { content: none; }
+  .nav-links a.active { color: var(--accent); }
 
   .hero {
     grid-template-columns: 1fr;
