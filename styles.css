@@ -97,7 +97,7 @@ a:focus-visible {
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 2rem;
 }
 
 /* ---------- Nav ---------- */
@@ -160,8 +160,11 @@ a:focus-visible {
 }
 .nav-toggle:focus-visible { outline: 3px solid var(--indigo); outline-offset: 2px; }
 
-/* ---------- Main ---------- */
-main { padding: 3.5rem 0 1rem; }
+/* ---------- Main ----------
+   Generous vertical room on purpose. The hero is a photo, a name and two
+   short paragraphs; crowded against the nav rule it reads like a header
+   rather than a page. */
+main { padding: 5.5rem 0 4.5rem; }
 section { margin-bottom: 3.5rem; }
 
 .eyebrow {
@@ -179,7 +182,9 @@ section { margin-bottom: 3.5rem; }
   grid-template-columns: 280px 1fr;
   gap: 3.5rem;
   align-items: center;
-  margin-bottom: 4.5rem;
+  /* Nothing follows the hero on the homepage any more, so trailing space is
+     main's padding-bottom rather than a margin stacked on top of it. */
+  margin-bottom: 0;
 }
 
 /* Daylight Blocks: a solid organic shape sits behind the photo, offset so the
@@ -189,10 +194,13 @@ section { margin-bottom: 3.5rem; }
   width: 260px;
   height: 260px;
 }
+/* An even ring on all four sides. The organic border-radius still keeps it
+   from reading as a plain circle, but the photo now sits centred inside it
+   rather than low and to the right. */
 .hero-figure::before {
   content: '';
   position: absolute;
-  inset: -20px -24px 10px -16px;
+  inset: -22px;
   background: var(--indigo);
   border-radius: 62% 38% 45% 55% / 48% 58% 42% 52%;
   z-index: 0;
@@ -403,8 +411,7 @@ section { margin-bottom: 3.5rem; }
 /* ---------- Footer ---------- */
 .site-footer {
   border-top: 2px solid var(--ink);
-  margin-top: 4rem;
-  padding: 2rem 0;
+  padding: 2.5rem 0;
   color: var(--dim);
   font-size: 0.9rem;
   text-align: center;
@@ -417,6 +424,9 @@ section { margin-bottom: 3.5rem; }
 }
 
 @media (max-width: 720px) {
+  main { padding: 3.5rem 0 3rem; }
+  .container { padding: 0 1.5rem; }
+
   .nav-toggle { display: block; }
   .nav-links {
     display: none;
@@ -440,7 +450,6 @@ section { margin-bottom: 3.5rem; }
     grid-template-columns: 1fr;
     gap: 2.25rem;
     text-align: center;
-    margin-bottom: 3rem;
   }
   .hero-figure { margin: 0 auto; width: 210px; height: 210px; }
   .hero-image { width: 210px; height: 210px; }

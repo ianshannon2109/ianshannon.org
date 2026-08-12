@@ -36,7 +36,7 @@
   background: var(--p-bg);
   color: var(--p-ink);
   font-family: var(--f-serif);
-  padding: 0 0 4rem;
+  padding: 0 0 5.5rem;
   display: block;
 }
 
@@ -79,7 +79,7 @@
 .mast {
   background: var(--p-mast);
   color: var(--p-mast-ink);
-  padding: 3.5rem 0 3rem;
+  padding: 4.5rem 0 4rem;
   margin-bottom: 0;
 }
 .mast .kicker { color: var(--sky); }
@@ -113,7 +113,7 @@
 }
 
 /* ---------- body rhythm ---------- */
-.project-body { padding-top: 2.5rem; }
+.project-body { padding-top: 3.5rem; }
 .project section { margin-bottom: 3.5rem; }
 
 .opener {
