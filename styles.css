@@ -176,8 +176,17 @@ a:focus-visible {
 .nav-toggle:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
 /* ---------- Main ---------- */
-main { padding: 6.5rem 0 5.5rem; }
+main { padding: 4.5rem 0 4rem; }
 section { margin-bottom: 3.5rem; }
+
+/* The homepage is one hero and nothing else. Left to normal flow it parks in
+   the top-left and looks like it's floating; centring it in the leftover
+   viewport height puts it midway down the screen. */
+.home-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
 .eyebrow {
   font-family: var(--f-ui);

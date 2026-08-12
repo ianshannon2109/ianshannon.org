@@ -174,8 +174,6 @@
     advocacy, we all have a style. You may not know yours yet.</p>
     <p style="margin-top:.6rem;">This is about <span class="hl">how</span> you decide, not how much you give.
     The same four patterns show up whether the gift is $50 or $5,000.</p>
-    <p class="muted" style="margin-top:.8rem;" id="privacy">Drawn from a Duke MPA capstone framework on how donors decide.
-    No answers are collected or sent anywhere; this page keeps your results to itself.</p>
     <button class="btn" onclick="start()">Find out my giving profile</button>
   </div>
 
@@ -362,7 +360,10 @@ function captureResponse(resultKey){
 })();
 
 (function setPrivacyLine(){
-  if(!CAPTURE_ENDPOINT) return;  // default wording in the HTML is already correct
+  // NOTE: the #privacy paragraph was removed from the intro (Aug 2026). If
+  // CAPTURE_ENDPOINT is ever enabled, reinstate a visible disclosure first —
+  // this function writes into an element that no longer exists.
+  if(!CAPTURE_ENDPOINT) return;
   const el=document.getElementById('privacy');
   if(!el) return;
   el.textContent="Drawn from a Duke MPA capstone framework on how donors decide. "+

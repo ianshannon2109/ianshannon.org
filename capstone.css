@@ -36,7 +36,7 @@
   background: var(--p-bg);
   color: var(--p-ink);
   font-family: var(--f-serif);
-  padding: 0 0 5.5rem;
+  padding: 0 0 3rem;
   display: block;
 }
 
@@ -79,13 +79,13 @@
 .mast {
   background: var(--p-mast);
   color: var(--p-mast-ink);
-  padding: 4.5rem 0 4rem;
+  padding: 3rem 0 2.5rem;
   margin-bottom: 0;
 }
 .mast .kicker { color: var(--sky); }
 .mast h1 {
   color: var(--p-mast-ink);
-  font-size: clamp(2.6rem, 1.4rem + 5vw, 5rem);
+  font-size: clamp(2.4rem, 1.3rem + 4vw, 4rem);
   line-height: 0.95;
   margin: 0;
 }
@@ -104,7 +104,7 @@
   border-top: 1px solid var(--p-line);
   border-bottom: 1px solid var(--p-line);
   padding: 0.9rem 0;
-  margin: 0 0 3rem;
+  margin: 0 0 1.75rem;
   font-family: var(--f-ui);
   font-size: 0.82rem;
   line-height: 1.5;
@@ -113,8 +113,8 @@
 }
 
 /* ---------- body rhythm ---------- */
-.project-body { padding-top: 3.5rem; }
-.project section { margin-bottom: 3.5rem; }
+.project-body { padding-top: 1.75rem; }
+.project section { margin-bottom: 2.25rem; }
 
 .opener {
   font-size: clamp(1.15rem, 1rem + 0.9vw, 1.5rem);
@@ -177,11 +177,12 @@
    Each gets its own full-width section. They used to share a two-column
    split; Ian found the side-by-side overwhelming. */
 .rules { list-style: none; margin: 0; padding: 0; }
+/* Full container width. These ran as a narrow column after the two-column
+   split came apart, which left the right half of the page empty. */
 .rules li {
   position: relative;
   padding-left: 1.15rem;
   margin-bottom: 0.9rem;
-  max-width: 52ch;
 }
 .rules li::before {
   content: '';
@@ -279,6 +280,18 @@
 .pill:hover { background: #ffdd63; color: var(--petrol); border-bottom-color: transparent; }
 .pill:focus-visible { outline: 3px solid var(--sky); outline-offset: 3px; }
 
+/* The success-state download link. The flare pill belongs on the petrol quiz
+   panel; on the white report panel it was yellow ground, coral text and a
+   coral focus ring at once — noisy and barely legible. Solid coral, white
+   text, and clear space below so it never sits on the note that follows. */
+.panel--report .pill {
+  background: var(--p-accent);
+  color: #fff;
+  margin: 0.2rem 0 0.6rem;
+}
+.panel--report .pill:hover { background: var(--petrol); color: #fff; }
+.panel--report .pill:focus-visible { outline-color: var(--petrol); }
+
 /* form */
 .report-form { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 1.1rem; }
 .report-form input[type="email"] {
@@ -344,7 +357,6 @@
   font-size: 0.84rem;
   line-height: 1.6;
   color: var(--p-sub);
-  max-width: 70ch;
 }
 .method h2 {
   font-family: var(--f-code);
