@@ -300,6 +300,37 @@ section { margin-bottom: 3.5rem; }
   margin-top: 0.4rem;
   max-width: var(--measure);
 }
+/* Early roles nested under the undergraduate degree, where they belong
+   chronologically, rather than as separate career-history entries. */
+.sub-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.6rem 0 0;
+}
+.sub-list li {
+  position: relative;
+  padding: 0.3rem 0 0.3rem 0.95rem;
+  font-size: 0.95rem;
+  max-width: var(--measure);
+}
+.sub-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.95em;
+  width: 5px;
+  height: 5px;
+  background: var(--teal);
+}
+.sub-list b { font-weight: 700; color: var(--ink); }
+.sub-list .yr {
+  font-family: var(--f-mono);
+  font-size: 0.78rem;
+  color: var(--dim);
+  font-variant-numeric: tabular-nums;
+  margin-left: 0.35rem;
+}
+
 .entry-list {
   list-style: none;
   padding: 0;
