@@ -122,16 +122,6 @@
   max-width: 34em;
   color: var(--p-head);
 }
-.hl {
-  background: linear-gradient(transparent 55%, var(--flare) 55%);
-  padding: 0 2px;
-  font-weight: 600;
-}
-@media (prefers-color-scheme: dark) {
-  /* flare behind light text is unreadable; brand fallback is the sky underline */
-  .hl { background: none; border-bottom: 2px solid var(--sky); padding: 0; }
-}
-
 .section-rule {
   display: flex;
   align-items: center;
