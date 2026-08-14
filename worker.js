@@ -14,7 +14,7 @@
  */
 
 const REPORT_KEY = 'giving-without-knowing.pdf';
-const REPORT_FILENAME = 'Giving Without Knowing - Ian Shannon.pdf';
+const REPORT_FILENAME = 'Ian Shannon - Giving Without Knowing.pdf';
 const TOKEN_TTL_MS = 24 * 60 * 60 * 1000;
 const RATE_LIMIT = 5;          // requests per IP per window
 const RATE_WINDOW_HOURS = 1;
