@@ -366,6 +366,66 @@ section { margin-bottom: 3.5rem; }
 .prose { max-width: var(--measure); }
 .prose p { font-size: 1.08rem; }
 
+/* ---------- About ----------
+   Copy leads, photo alongside it. Same hard-edged treatment as the homepage
+   hero, mirrored: a square-cornered image with a solid petrol block offset
+   behind it, pushed down-left instead of down-right so the block points back
+   into the page rather than off the right edge. */
+.about-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 3.5rem;
+  align-items: start;
+}
+/* section's default 3.5rem gets in the way once the prose is a grid cell. */
+.about-layout .prose { margin-bottom: 0; }
+
+.about-figure {
+  position: relative;
+  width: 320px;
+  /* Archivo Black sits low in its line box; this drops the frame far enough
+     to line its top edge up with the cap of "Hello!" rather than the box. */
+  margin: 0.5rem 0 0;
+}
+.about-figure::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  left: -22px;
+  top: 22px;
+  right: 22px;
+  bottom: -22px;
+  background: var(--petrol);
+}
+.about-image {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  background: var(--rule);
+}
+
+@media (prefers-color-scheme: dark) {
+  .about-figure::before { background: #12455a; }
+}
+
+/* Two columns need roughly 45ch of measure left for the text. Below that the
+   photo moves to the foot of the page, where it reads as a sign-off. Note the
+   breakpoint is above the site's 720px one: the layout runs out of room for
+   the sidebar well before the nav does. */
+@media (max-width: 880px) {
+  .about-layout { grid-template-columns: 1fr; }
+  .about-figure {
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+  .about-figure::before { left: -16px; top: 16px; right: 16px; bottom: -16px; }
+}
+
 /* ---------- Contact ---------- */
 .contact-list {
   list-style: none;
